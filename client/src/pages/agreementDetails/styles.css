@@ -1,0 +1,81 @@
+.agreement-details-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+
+  background-image: url("../../assets/img/dark-lines.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.agreement-details-body-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 618px;
+  position: relative;
+  background: transparent;
+  margin: 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.agreement-details-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.agreement-details-title-container {
+  padding-left: 20px;
+  padding-right: 20px;
+  background: transparent;
+
+  h1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 24px;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.agreements-details-component {
+  flex: 1 1 65%;
+  margin: 16px;
+  margin-right: 8px;
+}
+
+.agreement-details-side-component {
+  flex: 1 1 25%;
+  margin: 16px;
+  margin-left: 8px;
+}
+
+.agreement-details-custom-footer-text {
+  color: #000000;
+}
+
+@media screen and (max-width: 600px) {
+  .agreement-details-body-container {
+    margin: 8px;
+  }
+
+  .agreements-details-component {
+    margin: 8px;
+  }
+
+  .agreement-details-side-component {
+    margin: 8px;
+  }
+}

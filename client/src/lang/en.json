@@ -1,0 +1,55 @@
+{
+  "translation": {
+    "BACK": "Back",
+    "VIEW": "View",
+
+    "LOGO_TITLE": "Navigator",
+    "HEADER_HOME_NAV_TITLE": "Navigator API home page",
+    "HEADER_HOME_GITHUB_TITLE": "Github Source",
+
+    "HOME_HEADER_TITLE": "Welcome to Navigator Sample App",
+    "HOME_HEADER_DESCRIPTION": "Discover how the new Navigator API (beta) can be user to extract agreement information into another system.",
+    "HOME_HEADER_BTN_TITLE": "Login to try application",
+    "HOME_HEADER_CARD_TITLE": "Docusign: Build the future of agreements",
+    "HOME_HEADER_CARD_SUBTITLE": "Powering the world's agreements with Docusign APIs",
+    "HOME_HEADER_CARD_BTN_TITLE1": "Login with a test account",
+    "HOME_HEADER_CARD_BTN_TITLE2": "Login with a test account",
+
+    "SIDE_HEADER": "Behind the scenes",
+    "SIDE_HEADER2": "This sample features",
+    "SIDE_HEADER2_LI1": "Branding",
+    "SIDE_HEADER2_LI2": "Conditional recipients",
+    "SIDE_HEADER2_LI3": "Document visibility",
+    "SIDE_HEADER2_LI4": "Embedded signing",
+    "SIDE_HEADER3": "Code flow",
+    "SIDE_HEADER4": "Step 1",
+
+    "AGREEMENT_HEADER": "Agreements page",
+    "AGREEMENT_TEXT": "Here you can see a list of agreements that are found on the account using a Get Agreements API call.",
+
+    "AGREEMENT_DETAILS_HEADER": "Agreements details",
+    "AGREEMENT_DETAILS_TEXT": "Review all the information for this agreement by making a GET Agreement call for this agreement.",
+    "AGREEMENT_DETAILS_AGREEMENT":  "Agreement type",
+    "AGREEMENT_DETAILS_AGREEMENT_TYPE":  "Agreement type",
+    "AGREEMENT_DETAILS_AGREEMENT_PARTY":  "Party",
+    "AGREEMENT_DETAILS_AGREEMENT_CONTRACT_VALUE":  "Contract value",
+    "AGREEMENT_DETAILS_AGREEMENT_EFFECTIVE_DATE":  "Effective date",
+    "AGREEMENT_DETAILS_AGREEMENT_EXPIRATION_DATE":  "Expiration date",
+    "AGREEMENT_DETAILS_RENEWAL":  "Renewal",
+    "AGREEMENT_DETAILS_RENEWAL_TYPE":  "Renewal type",
+    "AGREEMENT_DETAILS_RENEWAL_NOTICE_PERIOD":  "Renewal notice period",
+    "AGREEMENT_DETAILS_RENEWAL_NOTICE_DATE":  "Renewal notice date",
+    "AGREEMENT_DETAILS_RENEWAL_TERM":  "Renewal term",
+    "AGREEMENT_DETAILS_RENEWAL_OWNER":  "Renewal owner",
+    "AGREEMENT_DETAILS_RENEWAL_ADDITIONAL_INFO":  "Additional information",
+
+    "SEARCH_NO_DATA_TITLE": "No results for “{{searchTerm}}”",
+    "SEARCH_NO_DATA": "Double check your search for any typos or spelling errors - or try a different term.",
+    "NO_DATA_TO_SHOWN_TITLE": "No data available to shown",
+    "NO_DATA_TO_SHOWN": "No data available to shown.",
+
+    "SEARCH_PLACEHOLDER": "Search by name",
+
+    "FOOTER_TITLE": "© 2024 DocuSign Inc."
+  }
+}

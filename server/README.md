@@ -24,8 +24,8 @@ Before you begin, ensure you have the following installed:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/navigator-api-sample-app.git
-   cd navigator-api-sample-app
+   git clone https://github.com/your-username/sample-app-navigator-node.git
+   cd sample-app-navigator-node
    ```
 
 2. **Install the dependencies**:

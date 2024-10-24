@@ -99,6 +99,10 @@
 }
 
 @media (max-width: 600px) {
+  .docusign-container {
+    margin-top: 5%;
+  }
+
   .docusign-card {  
     h2 {
       font-weight: 700;

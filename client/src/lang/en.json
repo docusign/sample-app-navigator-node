@@ -2,6 +2,7 @@
   "translation": {
     "BACK": "Back",
     "VIEW": "View",
+    "LOGOUT": "logout",
 
     "LOGO_TITLE": "Navigator",
     "HEADER_HOME_NAV_TITLE": "Navigator API home page",

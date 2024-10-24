@@ -1,0 +1,79 @@
+.agreement-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+
+  background-image: url("../../assets/img/dark-lines.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.agreement-body-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 618px;
+  position: relative;
+  margin: 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.title-container {
+  padding-left: 20px;
+  padding-right: 20px;
+
+  h1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 24px;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.agreements-component {
+  flex: 1 1 65%;
+  margin: 16px;
+  margin-right: 8px;
+}
+
+.side-component {
+  flex: 1 1 25%;
+  margin: 16px;
+  margin-left: 8px;
+}
+
+.custom-footer-text {
+  color: #000000;
+}
+
+@media screen and (max-width: 600px) {
+  .agreement-body-container {
+    margin: 8px;
+  }
+
+  .agreements-component {
+    margin: 8px;
+  }
+
+  .side-component {
+    margin: 8px;
+  }
+}

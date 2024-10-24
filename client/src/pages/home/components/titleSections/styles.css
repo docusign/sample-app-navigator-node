@@ -7,7 +7,7 @@
   color: white;
   gap: 40px;
   padding-top: 0;
-  padding-bottom: 2%;
+  padding-top: 2%;
   background-color: transparent;
 }
 
@@ -25,10 +25,22 @@
   }
 
   p {
+    padding: 0px 10% 0px 10%;
     font-size: 20px;
     font-weight: 400;
     line-height: 28px;
     color: #ffffff;
+  }
+
+  .title-main-word {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 60px;
+    align-self: center;
+    margin-bottom: 16px;
+    background: linear-gradient(to right, #af9ef9, #f690fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
@@ -77,6 +89,12 @@
       line-height: 52px;
       margin-bottom: 12px;
     }
+
+    .title-main-word {
+      font-size: 44px;
+      line-height: 52px;
+      margin-bottom: 12px;
+    }
   }
 }
 
@@ -92,6 +110,12 @@
       font-size: 14px;
       font-weight: 400;
       line-height: 21px;
+    }
+
+    .title-main-word {
+      font-size: 40px;
+      line-height: 48px;
+      margin-bottom: 0px;
     }
   }
 

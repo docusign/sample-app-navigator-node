@@ -21,15 +21,30 @@ const TitleSection: React.FC<TitleSectionProps> = ({
   return (
     <div className="main-container">
       <div className="title-section">
-        <h1>{title}</h1>
+        <h1>
+          {title.split(" ").map((word, index) => {
+            return word === "Navigator" ? (
+              <span
+                key={`${index + Math.random()}`}
+                className="title-main-word"
+              >
+                {word}{" "}
+              </span>
+            ) : (
+              <span key={`${index + Math.random()}`}>{word} </span>
+            );
+          })}
+        </h1>
         <p>{subTitle}</p>
       </div>
-      <button onClick={primaryLink?.onClick} className="button-title">{
-        <div className="btn-section">
-          <p>{btnTitle}</p>
-          <img className="arrowUp" src={arrowUp} alt="arrowUp" />
-        </div>
-      }</button>
+      <button onClick={primaryLink?.onClick} className="button-title">
+        {
+          <div className="btn-section">
+            <p>{btnTitle}</p>
+            <img className="arrowUp" src={arrowUp} alt="arrowUp" />
+          </div>
+        }
+      </button>
     </div>
   );
 };

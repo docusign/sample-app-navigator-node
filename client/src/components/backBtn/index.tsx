@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import arrowLeft from "../../assets/img/arrowLeft.svg";
 import { translationKeys } from "../../lang/translationKeys";
-import "./styles.css";
 import ArrowLeft from "../SVGIcons/ArrowLeftIcon";
 import { useState } from "react";
+import "./styles.css";
 
 type FooterProps = {
   className?: string;

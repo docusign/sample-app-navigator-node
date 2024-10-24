@@ -1,6 +1,7 @@
 export const translationKeys = {
     BACK: 'BACK',
     VIEW: 'VIEW',
+    LOGOUT: "LOGOUT",
 
     LOGO_TITLE: 'LOGO_TITLE',
     HEADER_HOME_NAV_TITLE: 'HEADER_HOME_NAV_TITLE',

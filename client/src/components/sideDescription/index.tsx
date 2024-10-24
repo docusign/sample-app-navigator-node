@@ -2,8 +2,8 @@ import { useState, useMemo } from "react";
 import minus from "../../assets/img/minus.svg";
 import plus from "../../assets/img/plus.svg";
 import { useTranslation } from "react-i18next";
-import "./styles.css";
 import { translationKeys } from "../../lang/translationKeys";
+import "./styles.css";
 
 const SideDescription = () => {
   const { t } = useTranslation();

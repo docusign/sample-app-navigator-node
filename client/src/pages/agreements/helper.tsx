@@ -21,7 +21,7 @@ export const getColumns = (
     dataIndex: "parties",
     key: "parties",
     render: (_: any, record: AgreementDocument) =>
-      record.data.parties?.map((party: any) => party.name).join(", ") || "-",
+      record.data.parties?.map((party: any) => party.name).join(", ") ?? "-",
   },
   {
     title: "Document Type",
@@ -29,7 +29,7 @@ export const getColumns = (
     key: "agreementType",
     render: (_: any, record: AgreementDocument) => {
       const agreementType = record.data.agreementType as DocumentTypeModel;
-      return documentTypeMapping[agreementType] || "-";
+      return documentTypeMapping[agreementType] ?? "-";
     },
   },
   {
@@ -53,3 +53,24 @@ export const getColumns = (
     ),
   },
 ];
+
+export const getNestedValue = (obj: AgreementDocument, path: string) => {
+  switch (path) {
+    case "name":
+      return obj.data.name;
+    case "parties":
+      return (
+        obj.data.parties?.map((party: any) => party.name).join(", ") ?? "-"
+      );
+    case "agreementType":
+      return (
+        documentTypeMapping[obj.data.agreementType as DocumentTypeModel] ?? "-"
+      );
+    case "expirationDate":
+      return obj.data.expirationDate
+        ? new Date(obj.data.expirationDate)
+        : new Date();
+    default:
+      return "";
+  }
+};

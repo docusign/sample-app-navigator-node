@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import SortingIcon from "../../../components/SVGIcons/SortingIcon";
+import SortingUpIcon from "../../../components/SVGIcons/SortingUpIcon";
+import SortingDownIcon from "../../../components/SVGIcons/SortingDownIcon";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { AgreementDocument } from "../../../types";
-import { getColumns } from "../helper";
+import { getColumns, getNestedValue } from "../helper";
 import "./styles.css";
 import PaginationTable from "./pagination";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../../lang/translationKeys";
 import TableFilters from "./filters";
+
+type TSortTable = "ASC" | "DESC";
+interface SortConfig {
+  key: string;
+  direction: TSortTable;
+}
 
 type AgreementsTableProps = {
   data: AgreementDocument[];
@@ -20,6 +29,10 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
   const [pageSize, setPageSize] = useState(10);
   const [pageNumber, setPageNumber] = useState(1);
   const [searchText, setSearchText] = useState("");
+  const [sortConfig, setSortConfig] = useState<SortConfig>({
+    key: "",
+    direction: "ASC",
+  });
   const [filteredData, setFilteredData] = useState(data);
   const startIndex = (pageNumber - 1) * pageSize;
   const endIndex = startIndex + pageSize;
@@ -29,6 +42,39 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
   const [expirationDate, setExpirationDate] = useState<string | undefined>(
     undefined
   );
+
+  const handleSort = (key: string) => {
+    let direction: TSortTable = "ASC";
+    if (sortConfig.key === key && sortConfig.direction === "ASC") {
+      direction = "DESC";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = [...filteredData].sort((a, b) => {
+    if (!sortConfig.key) return 0;
+
+    const aValue = getNestedValue(a, sortConfig.key);
+    const bValue = getNestedValue(b, sortConfig.key);
+
+    if (aValue < bValue) {
+      return sortConfig.direction === "ASC" ? -1 : 1;
+    }
+    if (aValue > bValue) {
+      return sortConfig.direction === "ASC" ? 1 : -1;
+    }
+    return 0;
+  });
+  const renderSortIcon = (key: string) => {
+    if (sortConfig.key !== key) {
+      return <SortingIcon />;
+    }
+    return sortConfig.direction === "ASC" ? (
+      <SortingUpIcon />
+    ) : (
+      <SortingDownIcon />
+    );
+  };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -100,14 +146,21 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
               <thead>
                 <tr>
                   {columns.map((col, index) => (
-                    <th scope="col" key={index}>
-                      {col.title.toUpperCase()}
+                    <th scope="col" key={col.dataIndex}>
+                      <div
+                        className="table-th-container"
+                        onClick={() => handleSort(col.key)}
+                      >
+                        {col.title.toUpperCase()}
+                        {index !== columns.length - 1 &&
+                          renderSortIcon(col.dataIndex ?? col.key)}
+                      </div>
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {filteredData.slice(startIndex, endIndex).map((item) => (
+                {sortedData.slice(startIndex, endIndex).map((item) => (
                   <tr key={item.id}>
                     {columns.map((col, index) => (
                       <td key={index} data-label={col.title}>

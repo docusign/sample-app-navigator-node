@@ -10,8 +10,8 @@ const path = require('path');
 module.exports = {
   port: process.env.PORT,
   docusign: {
-    clientId: process.env.DS_CLIENT_ID, 
-    clientSecret: process.env.DS_CLIENT_SECRET,
+    clientId: 'e3893c40-de84-4c40-8dbe-5980ed858682',
+    clientSecret: '1352b403-5ad1-4151-8c5c-ec9085f988d6',
     userId: process.env.DS_IMPERSONATED_USER_ID, 
     accountId: process.env.DS_ACCOUNT_ID,
     authServer: process.env.DS_AUTH_SERVER,

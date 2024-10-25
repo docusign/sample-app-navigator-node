@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction,createAsyncThunk } from '@reduxjs/toolkit';
 import { UserState } from './types';
 import { Lang, UserType } from '../../../types';
 // import API from '../../../libs/API';
@@ -14,6 +14,25 @@ const initialState: UserState = {
 //   const response = await API.getUser();
 //   return response.data;
 // });
+
+export const callbackAction = createAsyncThunk(
+  'user/callbackAction',
+  async (authCode: string, thunkAPI) => {
+    try {
+      // Replace with the actual endpoint if necessary
+      const response = await axios.get<{ success: boolean; accessToken: string }>(`/ds/callback?code=${authCode}`);
+      if (response.data.success) {
+        // If successful, return the token or any other relevant data
+        return response.data.accessToken;
+      } else {
+        return thunkAPI.rejectWithValue('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during callbackAction:', error);
+      return thunkAPI.rejectWithValue('An error occurred during login');
+    }
+  }
+);
 
 const UserSlice = createSlice({
   name: 'user',

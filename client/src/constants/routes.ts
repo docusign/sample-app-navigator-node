@@ -3,6 +3,7 @@ export const ROUTE = {
     HOME: '/home',
     AGREEMENTS: '/agreements',
     AGREEMENT_DETAILS: '/agreement-details/:id',
+    AUTH_CALLBACK: '/auth-callback',
   };
 
   export const LINKS = {

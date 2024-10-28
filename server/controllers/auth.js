@@ -5,8 +5,6 @@ const callBackController = async (req, res) => {
   const code = req.query.code;
   const state = req.query.state;
 
-  console.log('callBackController', code, state);
-
   if (!code) {
     return res.status(400).send('Authorization code not found in the request.');
   }
@@ -35,6 +33,12 @@ const callBackController = async (req, res) => {
     if (!access_token) {
       return res.status(500).json({ message: 'Access token not received from DocuSign.' });
     }
+
+    config.docusignTokens = {
+      accessToken: access_token,
+      refreshToken: refresh_token,
+      expiresIn: expires_in,
+    };
 
     res.redirect(`http://localhost:3000/auth-callback?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`);
   } catch (error) {

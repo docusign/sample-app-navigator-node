@@ -1,33 +1,55 @@
-require('dotenv').config();
-const mockData = require('../mockData');
-const docusign = require('docusign-esign');
+const axios = require('axios');
 const config = require('../config/config');
-
-const dsApi = new docusign.ApiClient();
-dsApi.setOAuthBasePath(config.docusign.authServer);
 
 const getAgreements = async () => {
   try {
-    console.log('Fetching all agreements from mock data...');
-    return mockData.agreementDocuments;
+    if (!config.docusignTokens || !config.docusignTokens.accessToken) {
+      throw new Error('Access token is missing. Please log in again.');
+    }
+
+    const response = await axios.get(
+      `${config.docusign.agreementsUrl}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${config.docusignTokens.accessToken}`,
+        },
+      }
+    );
+
+    if (response.data && response.data.agreementDocuments) {
+      return response.data.agreementDocuments;
+    } else {
+      throw new Error('No agreements found');
+    }
   } catch (error) {
-    console.error('Error fetching agreements from mock data:', error.message);
+    console.error('Error fetching agreements from DocuSign:', error.message);
     throw error;
   }
 };
 
 const getAgreementById = async (agreementId) => {
   try {
-    console.log(`Fetching agreement with ID: ${agreementId} from mock data...`);
-    const agreement = mockData.agreementDocuments.find((doc) => doc.id === agreementId);
-    if (!agreement) {
-      console.error(`Agreement with ID ${agreementId} not found`);
+
+    if (!config.docusignTokens || !config.docusignTokens.accessToken) {
+      throw new Error('Access token is missing. Please log in again.');
+    }
+
+    const response = await axios.get(
+      `${config.docusign.authServer}/accounts/${config.docusign.accountId}/agreements/${agreementId}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${config.docusignTokens.accessToken}`,
+        },
+      }
+    );
+
+    if (response.data) {
+      return response.data;
+    } else {
       throw new Error(`Agreement with ID ${agreementId} not found`);
     }
-    console.log(`Agreement with ID: ${agreementId} found`);
-    return agreement;
   } catch (error) {
-    console.error(`Error fetching agreement ${agreementId} from mock data:`, error.message);
+    console.error(`Error fetching agreement ${agreementId} from DocuSign:`, error.message);
     throw error;
   }
 };

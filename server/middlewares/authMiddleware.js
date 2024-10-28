@@ -10,7 +10,6 @@ module.exports = async (req, res, next) => {
     }
 
     const currentToken = authHeader.split(' ')[1];
-    console.log('Current Token from FE:', currentToken);
 
     const userInfoUrl = 'https://account-d.docusign.com/oauth/userinfo';
 
@@ -22,18 +21,15 @@ module.exports = async (req, res, next) => {
       });
 
       const fetchedUserId = response.data.sub;
-      console.log('Fetched User ID:', fetchedUserId);
 
 
       const expectedUserId = config.docusign.userId;
-      console.log('Expected User ID:', expectedUserId);
 
       if (fetchedUserId !== expectedUserId) {
         console.error('User ID mismatch. Access denied.');
         return res.status(403).json({ message: 'User validation failed. Access denied.' });
       }
 
-      console.log('User validated successfully.');
       next();
 
     } catch (error) {

@@ -1,24 +1,20 @@
 require('dotenv').config();
 const path = require('path');
 
-// console.log('DS_PRIVATE_KEY_PATH:', process.env.DS_PRIVATE_KEY_PATH);
-
-// const resolvedPath = path.join(__dirname, process.env.DS_PRIVATE_KEY_PATH.replace('./config', '.'));
-// console.log('Resolved private key path:', resolvedPath);
 
 
 module.exports = {
   port: process.env.PORT,
   docusign: {
-    clientId: 'e3893c40-de84-4c40-8dbe-5980ed858682',
-    clientSecret: '1352b403-5ad1-4151-8c5c-ec9085f988d6',
+    clientId: process.env.DS_CLIENT_ID,
+    clientSecret: process.env.DS_CLIENT_SECRET,
     userId: process.env.DS_IMPERSONATED_USER_ID, 
     accountId: process.env.DS_ACCOUNT_ID,
     authServer: process.env.DS_AUTH_SERVER,
     privateKeyPath: process.env.DS_PRIVATE_KEY_PATH,
     redirectUri: process.env.DS_REDIRECT_URI,
     tokenUrl:  process.env.TOKEN_URL,
-    agreementsUrl:`https://s1.us.services.demo.docusign.net/devx-iam/v1/accounts/6aed3a52-a5db-42ae-9b1c-e89988167cfd/agreements/`
+    agreementsUrl:`https://s1.us.services.demo.docusign.net/devx-iam/v1/accounts/${process.env.DS_ACCOUNT_ID}/agreements/`
   },
   server: {
     port: process.env.PORT || 3001,

@@ -6,18 +6,16 @@ const { getAgreementsController,getAgreementByIdController } = require('./contro
 const {callBackController} = require('./controllers/auth');
 
 
-router.get('/agreements',authMiddleware, getAgreementsController);
-router.get('/agreements/:id',authMiddleware, getAgreementByIdController);
+router.get('/api/agreements',authMiddleware, getAgreementsController);
+router.get('/api/agreements/:id',authMiddleware, getAgreementByIdController);
 router.get('/ds/callback',callBackController);
 router.get('/healthcheck', (req, res) => {
   res.send('Welcome to the DocuSign Navigator API sample app');
 });
 
 router.get('/ds/authorize', (req, res) => {
-  console.log('/ds/authorize')
   const oauthUrl = `https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature%20adm_store_unified_repo_read%20adm_store_unified_repo_write%20agreement_object_model_read%20models_read%20models_write%20ais_analyze%20apr_read%20apr_write&client_id=${config.docusign.clientId}&redirect_uri=${config.docusign.redirectUri}&state=random_state_string`;
-  
-  // Перенаправлення користувача до DocuSign для авторизації
+
   res.redirect(oauthUrl);
 });
 

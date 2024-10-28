@@ -1,8 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const config = require('./config/config');
 const cors = require('cors');
+const config = require('./config/config');
 const router = require('./router');
 
 const app = express();

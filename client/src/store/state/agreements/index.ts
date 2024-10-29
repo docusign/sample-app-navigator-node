@@ -41,6 +41,7 @@ export const fetchAgreementById = createAsyncThunk(
           Authorization: `Bearer ${accessToken}`,
         },
       }) as any;
+      console.log(response.data)
       return response.data.data as AgreementDocument;
     } catch (error: any) {
       return rejectWithValue("Failed to fetch agreements. Please try again later.");

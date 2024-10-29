@@ -1,7 +1,7 @@
 .pagination-container {
   display: flex;
-  padding: 24px 12px 12px 12px;
-  gap: 24px;
+  padding: 24px 8px 12px 8px;
+  gap: 12px;
   flex-direction: row;
   flex-wrap: nowrap;
   align-content: center;
@@ -18,32 +18,24 @@
 
 .page-selector-container {
   display: flex;
-  gap: 8px;
-  flex-direction: row;
-  flex-wrap: nowrap;
   align-content: center;
   justify-content: center;
   align-items: center;
 
-  .page-selector {
+  .pagination-page-select .ant-select-selector {
+    background-color: #ffffff;
+    border-radius: 8px;
+    flex: 1;
     border: none;
     font-size: 12px;
     line-height: 16px;
     font-weight: 400;
-    color: #9e9d9f;
-    align-self: center;
-    margin: 0;
-    padding: 5px;
-    border-radius: 4px;
+    margin: 0px 0px 0px 0px;
+    gap: 7px;
   }
 
-  .page-selector:hover {
-    color: #000000;
-  }
-
-  .page-selector:focus,
-  .page-selector:focus-visible {
-    outline: none;
+  .pagination-chevron-down {
+    padding: 0;
   }
 
   p {
@@ -58,7 +50,6 @@
 
 .page-clicker-container {
   display: flex;
-  gap: 8px;
   flex-direction: row;
   flex-wrap: nowrap;
   align-content: center;

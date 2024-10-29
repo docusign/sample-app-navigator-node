@@ -144,7 +144,9 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
           </div>
           {showLogoutBtn && (
             <div className="header-end-box-dropdown">
-              <button className="logout-btn">{"logout"}</button>
+              <button className="logout-btn" onClick={handleLogoutAction}>
+                {t(translationKeys.LOGOUT)}
+              </button>
             </div>
           )}
         </div>

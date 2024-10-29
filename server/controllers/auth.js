@@ -1,28 +1,54 @@
-const docusignService = require('../services/docusignService');
+const axios = require('axios');
+const config = require('../config/config');
 
 const callBackController = async (req, res) => {
   const code = req.query.code;
-  console.log('req.query.client_id',req.query.client_id)
-  console.log('response',res)
-  if (!code) {
-    return res.status(400).send('Authorization code not found');
-  }
+  const state = req.query.state;
 
-  console.log('code in callBackController',code)
+  if (!code) {
+    return res.status(400).send('Authorization code not found in the request.');
+  }
 
   try {
-    res.status(200).json({
-       success: true,
-       message: 'Logged in successfully', 
-       accessToken: code 
-      });
+    const credentials = Buffer.from(`${config.docusign.clientId}:${config.docusign.clientSecret}`).toString('base64');
+    const requestData = new URLSearchParams({
+      grant_type: 'authorization_code',
+      code,
+      redirect_uri: config.docusign.redirectUri,
+    }).toString();
+
+    const tokenResponse = await axios.post(
+      'https://account-d.docusign.com/oauth/token',
+      requestData,
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Basic ${credentials}`,
+        },
+      }
+    );
+
+    const { access_token, refresh_token, expires_in } = tokenResponse.data;
+
+    if (!access_token) {
+      return res.status(500).json({ message: 'Access token not received from DocuSign.' });
+    }
+
+    config.docusignTokens = {
+      accessToken: access_token,
+      refreshToken: refresh_token,
+      expiresIn: expires_in,
+    };
+
+    res.redirect(`http://localhost:3000/auth-callback?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`);
   } catch (error) {
-    console.error('Error in /ds/callback:', error);
-    res.status(500).json({ message: 'Login failed', error });
+    console.error(error);
+    res.status(500).json({
+      message: 'Login failed',
+      error: error.message,
+      ...(error.response && { statusCode: error.response.status, errorData: error.response.data }),
+    });
   }
 };
 
-
-module.exports = {
-  callBackController,
-};
+module.exports = { callBackController };

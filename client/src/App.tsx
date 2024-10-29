@@ -4,6 +4,7 @@ import "./lang/i18n";
 import Home from "./pages/home";
 import Agreements from "./pages/agreements";
 import AgreementDetails from "./pages/agreementDetails";
+import AuthCallback from '../src/pages/home/components/authCallback/authCallback';
 import { ConfigProvider } from "antd";
 import { ROUTE } from "./constants/routes";
 import { Provider } from "react-redux";
@@ -48,6 +49,7 @@ function App() {
               <Routes>
                 <Route path={ROUTE.ROOT} element={<Home />} />
                 <Route path={ROUTE.AGREEMENTS} element={<Agreements />} />
+                <Route path={ROUTE.AUTH_CALLBACK} element={<AuthCallback />} />
                 <Route
                   path={ROUTE.AGREEMENT_DETAILS}
                   element={<AgreementDetails />}

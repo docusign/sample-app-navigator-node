@@ -1,5 +1,6 @@
+const config = require('../config/config');
 const axios = require('axios');
-const jwt = require('jsonwebtoken');
+
 
 module.exports = async (req, res, next) => {
   try {
@@ -8,15 +9,7 @@ module.exports = async (req, res, next) => {
       return res.status(401).json({ message: 'No valid access token found. Please log in.' });
     }
 
-    let currentToken = authHeader.split(' ')[1];
-    console.log(' currentToken from FE', currentToken);
-
-    const decodedTokenPayload = jwt.decode(currentToken);
-    console.log('decodedTokenPayload',decodedTokenPayload)
-    
-    if (!decodedTokenPayload || !decodedTokenPayload.UserId) {
-      return res.status(401).json({ message: 'Invalid token payload' });
-    }
+    const currentToken = authHeader.split(' ')[1];
 
     const userInfoUrl = 'https://account-d.docusign.com/oauth/userinfo';
 
@@ -27,19 +20,16 @@ module.exports = async (req, res, next) => {
         }
       });
 
-      const fetchedUser = response.data;
-      const fetchedUserId = fetchedUser.sub;
-      const tokenUserId = decodedTokenPayload.UserId;
+      const fetchedUserId = response.data.sub;
 
-      console.log('fetchedUserId:', fetchedUserId);
-      console.log('tokenUserId:', tokenUserId);
 
-      if (tokenUserId !== fetchedUserId) {
-        console.error('User ID mismatch. Session user ID does not match fetched user ID.');
-        return res.status(401).json({ message: 'User validation failed. Please log in again.' });
+      const expectedUserId = config.docusign.userId;
+
+      if (fetchedUserId !== expectedUserId) {
+        console.error('User ID mismatch. Access denied.');
+        return res.status(403).json({ message: 'User validation failed. Access denied.' });
       }
 
-      console.log('User verified successfully:');
       next();
 
     } catch (error) {

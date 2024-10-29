@@ -2,6 +2,17 @@
   "translation": {
     "BACK": "Back",
     "VIEW": "View",
+    "LOGOUT": "logout",
+    "SHOWING": "Showing",
+    "OF": "of",
+    "LOAD_MORE": "Load more",
+    "ROWS_PER_PAGE": "Rows per page: ",
+
+    "NAME": "Name",
+    "PARTIES": "Parties",
+    "DOCUMENT_TYPE": "Document Type",
+    "EXPIRATION_DATE": "Expiration Date",
+    "ACTIONS": "",
 
     "LOGO_TITLE": "Navigator",
     "HEADER_HOME_NAV_TITLE": "Navigator API home page",

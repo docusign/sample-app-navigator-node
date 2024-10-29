@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logo.svg";
 import menuClosed from "../../assets/img/menu-closed.svg";
 import menu from "../../assets/img/menu-opened.svg";
-import chevronRight from "../../assets/img/chevron-right.svg";
 import { LINKS, ROUTE } from "../../constants/routes";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
 import { useEffect, useState } from "react";
+import ChevronRightIcon from "../SVGIcons/ChevronRightIcon";
+
 import "./styles.css";
 
 interface HeaderProps {
@@ -16,14 +17,17 @@ interface HeaderProps {
 
 const Header = ({ showLogoutBtn, className }: HeaderProps) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
+  const [isApiLinkHovered, setIsApiLinkHovered] = useState(false);
+  const [isGitLinkHovered, setIsGitLinkHovered] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 600 && isDropdownOpen) {
-        setDropdownOpen(false);
+        setIsDropdownOpen(false);
       }
     };
 
@@ -32,6 +36,10 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
       window.removeEventListener("resize", handleResize);
     };
   }, [isDropdownOpen]);
+
+  const handleLogoutAction = () => {
+    navigate(`/`);
+  };
 
   return (
     <header className={`header ${className}`} role="banner">
@@ -47,28 +55,44 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
           <div className="header-end-box">
             <a
               className="navLink"
-              href={LINKS.GITHUB}
+              href={LINKS.API_HOME_PAGE}
+              onMouseEnter={() => setIsApiLinkHovered(true)}
+              onMouseLeave={() => setIsApiLinkHovered(false)}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <p>{t(translationKeys.HEADER_HOME_NAV_TITLE)}</p>
-              <img src={chevronRight} alt="chevron-right" />
+              <p style={{ color: isApiLinkHovered ? "#bfd7ff" : "#B3B8FF" }}>
+                {t(translationKeys.HEADER_HOME_NAV_TITLE)}
+              </p>
+              <ChevronRightIcon
+                color={isApiLinkHovered ? "#bfd7ff" : "#B3B8FF"}
+                size={14}
+              />
             </a>
           </div>
           <div className="header-end-box">
             <a
               className="navLink"
               href={LINKS.GITHUB}
+              onMouseEnter={() => setIsGitLinkHovered(true)}
+              onMouseLeave={() => setIsGitLinkHovered(false)}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <p>{t(translationKeys.HEADER_HOME_GITHUB_TITLE)}</p>
-              <img src={chevronRight} alt="chevron-right" />
+              <p style={{ color: isGitLinkHovered ? "#bfd7ff" : "#B3B8FF" }}>
+                {t(translationKeys.HEADER_HOME_GITHUB_TITLE)}
+              </p>
+              <ChevronRightIcon
+                color={isGitLinkHovered ? "#bfd7ff" : "#B3B8FF"}
+                size={14}
+              />
             </a>
           </div>
           {showLogoutBtn && (
             <div className="header-end-box">
-              <button className="logout-btn">{"logout"}</button>
+              <button className="logout-btn" onClick={handleLogoutAction}>
+                {t(translationKeys.LOGOUT)}
+              </button>
             </div>
           )}
         </div>
@@ -86,27 +110,43 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
             <a
               className="navLink"
               href={LINKS.GITHUB}
+              onMouseEnter={() => setIsApiLinkHovered(true)}
+              onMouseLeave={() => setIsApiLinkHovered(false)}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <p>{t(translationKeys.HEADER_HOME_NAV_TITLE)}</p>
-              <img src={chevronRight} alt="chevron-right" />
+              <p style={{ color: isApiLinkHovered ? "#bfd7ff" : "#B3B8FF" }}>
+                {t(translationKeys.HEADER_HOME_NAV_TITLE)}
+              </p>
+              <ChevronRightIcon
+                color={isApiLinkHovered ? "#bfd7ff" : "#B3B8FF"}
+                size={14}
+              />
             </a>
           </div>
           <div className="header-end-box-dropdown">
             <a
               className="navLink"
               href={LINKS.GITHUB}
+              onMouseEnter={() => setIsGitLinkHovered(true)}
+              onMouseLeave={() => setIsGitLinkHovered(false)}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <p>{t(translationKeys.HEADER_HOME_GITHUB_TITLE)}</p>
-              <img src={chevronRight} alt="chevron-right" />
+              <p style={{ color: isGitLinkHovered ? "#bfd7ff" : "#B3B8FF" }}>
+                {t(translationKeys.HEADER_HOME_GITHUB_TITLE)}
+              </p>
+              <ChevronRightIcon
+                color={isGitLinkHovered ? "#bfd7ff" : "#B3B8FF"}
+                size={14}
+              />
             </a>
           </div>
           {showLogoutBtn && (
             <div className="header-end-box-dropdown">
-              <button className="logout-btn">{"logout"}</button>
+              <button className="logout-btn" onClick={handleLogoutAction}>
+                {t(translationKeys.LOGOUT)}
+              </button>
             </div>
           )}
         </div>

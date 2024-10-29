@@ -1,0 +1,66 @@
+{
+  "translation": {
+    "BACK": "Назад",
+    "VIEW": "Переглянути",
+    "LOGOUT": "Вийти",
+    "SHOWING": "Показано",
+    "OF": "з",
+    "LOAD_MORE": "Завантажити більше",
+    "ROWS_PER_PAGE": "Рядків на сторінку: ",
+
+    "NAME": "Ім'я",
+    "PARTIES": "Сторони",
+    "DOCUMENT_TYPE": "Тип документа",
+    "EXPIRATION_DATE": "Дата закінчення",
+    "ACTIONS": "",
+
+    "LOGO_TITLE": "Навігатор",
+    "HEADER_HOME_NAV_TITLE": "Головна сторінка Navigator API",
+    "HEADER_HOME_GITHUB_TITLE": "Джерело на GitHub",
+
+    "HOME_HEADER_TITLE": "Ласкаво просимо до демо-додатку Navigator",
+    "HOME_HEADER_DESCRIPTION": "Дізнайтесь, як новий Navigator API (бета) може використовуватися для експорту інформації про угоди в іншу систему.",
+    "HOME_HEADER_BTN_TITLE": "Увійдіть, щоб спробувати додаток",
+    "HOME_HEADER_CARD_TITLE": "Docusign: Будуйте майбутнє угод",
+    "HOME_HEADER_CARD_SUBTITLE": "Підтримка угод по всьому світу з DocuSign APIs",
+    "HOME_HEADER_CARD_BTN_TITLE1": "Увійти за допомогою тестового облікового запису",
+    "HOME_HEADER_CARD_BTN_TITLE2": "Увійти за допомогою тестового облікового запису",
+
+    "SIDE_HEADER": "За кулісами",
+    "SIDE_HEADER2": "Цей приклад демонструє",
+    "SIDE_HEADER2_LI1": "Брендування",
+    "SIDE_HEADER2_LI2": "Умовні отримувачі",
+    "SIDE_HEADER2_LI3": "Видимість документів",
+    "SIDE_HEADER2_LI4": "Вбудоване підписання",
+    "SIDE_HEADER3": "Кодовий потік",
+    "SIDE_HEADER4": "Крок 1",
+
+    "AGREEMENT_HEADER": "Сторінка угод",
+    "AGREEMENT_TEXT": "Тут ви можете побачити список угод, знайдених у обліковому записі за допомогою запиту Get Agreements API.",
+
+    "AGREEMENT_DETAILS_HEADER": "Деталі угоди",
+    "AGREEMENT_DETAILS_TEXT": "Перегляньте всю інформацію про цю угоду за допомогою запиту GET Agreement для цієї угоди.",
+    "AGREEMENT_DETAILS_AGREEMENT": "Тип угоди",
+    "AGREEMENT_DETAILS_AGREEMENT_TYPE": "Тип угоди",
+    "AGREEMENT_DETAILS_AGREEMENT_PARTY": "Сторона",
+    "AGREEMENT_DETAILS_AGREEMENT_CONTRACT_VALUE": "Вартість контракту",
+    "AGREEMENT_DETAILS_AGREEMENT_EFFECTIVE_DATE": "Дата початку дії",
+    "AGREEMENT_DETAILS_AGREEMENT_EXPIRATION_DATE": "Дата закінчення дії",
+    "AGREEMENT_DETAILS_RENEWAL": "Продовження",
+    "AGREEMENT_DETAILS_RENEWAL_TYPE": "Тип продовження",
+    "AGREEMENT_DETAILS_RENEWAL_NOTICE_PERIOD": "Період повідомлення про продовження",
+    "AGREEMENT_DETAILS_RENEWAL_NOTICE_DATE": "Дата повідомлення про продовження",
+    "AGREEMENT_DETAILS_RENEWAL_TERM": "Термін продовження",
+    "AGREEMENT_DETAILS_RENEWAL_OWNER": "Власник продовження",
+    "AGREEMENT_DETAILS_RENEWAL_ADDITIONAL_INFO": "Додаткова інформація",
+
+    "SEARCH_NO_DATA_TITLE": "Немає результатів для «{{searchTerm}}»",
+    "SEARCH_NO_DATA": "Перевірте правильність написання запиту або спробуйте інший термін.",
+    "NO_DATA_TO_SHOWN_TITLE": "Немає даних для відображення",
+    "NO_DATA_TO_SHOWN": "Дані для відображення відсутні.",
+
+    "SEARCH_PLACEHOLDER": "Пошук за ім'ям",
+
+    "FOOTER_TITLE": "© 2024 DocuSign Inc."
+  }
+}

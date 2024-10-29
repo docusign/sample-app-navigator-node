@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import arrowLeft from "../../assets/img/arrowLeft.svg";
 import { translationKeys } from "../../lang/translationKeys";
-import "./styles.css";
-import ArrowLeft from "../SVGIcons/ArrowLeftIcon";
+import ChevronLeftIcon from "../SVGIcons/ChevronLeftIcon";
 import { useState } from "react";
+import "./styles.css";
 
 type FooterProps = {
   className?: string;
@@ -33,7 +32,7 @@ const BackButton = ({
         onMouseLeave={() => setIsHovered(false)}
       >
         <div>
-          <ArrowLeft color={isHovered ? "#2420d2" : "#5855FF"} size={12} />
+          <ChevronLeftIcon color={isHovered ? "#2420d2" : "#5855FF"} size={12} />
           <span className={`back-button-text ${textClassName}`}>
             {t(translationKeys.BACK)}
           </span>

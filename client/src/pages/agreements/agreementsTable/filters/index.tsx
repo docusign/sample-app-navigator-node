@@ -1,24 +1,31 @@
 import React from "react";
-import searchIcon from "../../../../assets/img/search.svg";
-import chevronDownIcon from "../../../../assets/img/chevron-down.svg";
+import SearchIcon from "../../../../components/SVGIcons/SearchIcon";
+import ChevronDownIcon from "../../../../components/SVGIcons/ChevronDownIcon";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../../../lang/translationKeys";
 import { documentTypeMapping } from "../../helper";
+import { DatePicker, Select } from "antd";
+import { DefaultOptionType } from "antd/es/select";
+import { DEFAULT_TYPE, TFilterTable } from "..";
+
 import "./styles.css";
+import { DEFAULT_PAGE_NUMBER } from "../../../../constants/table";
 
 type TableFilterProps = {
-  searchText?: string;
-  documentType?: string;
-  expirationDate?: string;
+  filters: TFilterTable;
   handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleFilterDate: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleFilterType: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleFilterDate: (
+    date: React.ChangeEvent<HTMLInputElement>,
+    dateString: string | string[]
+  ) => void;
+  handleFilterType: (
+    value: string,
+    option: DefaultOptionType | DefaultOptionType[]
+  ) => void;
 };
 
 const TableFilters: React.FC<TableFilterProps> = ({
-  searchText,
-  expirationDate,
-  documentType,
+  filters,
   handleSearch,
   handleFilterDate,
   handleFilterType,
@@ -31,38 +38,72 @@ const TableFilters: React.FC<TableFilterProps> = ({
         <input
           type="search"
           placeholder={t(translationKeys.SEARCH_PLACEHOLDER)}
-          value={searchText}
+          value={filters.searchText}
           onChange={handleSearch}
           className="search-input"
         />
-        <img className="search-icon" src={searchIcon} alt="icon" />
-      </div>
-      <div className="date-input-container">
-        <input
-          type="date"
-          placeholder="expirationDate"
-          value={expirationDate}
-          onChange={handleFilterDate}
-          className="expiration-date-input"
+        <SearchIcon
+          color={filters.searchText ? "#000000" : "#9e9d9f"}
+          size={24}
+          className="search-icon"
         />
-        <img className="chevron-down" src={chevronDownIcon} alt="icon" />
       </div>
-      <div className="doc-type-selector-wrapper">
-        <select
-          value={documentType}
-          onChange={handleFilterType}
-          className="doc-type-selector"
-        >
-          <option value="">Document Type</option>
-          {Object.entries(documentTypeMapping).map(
-            ([modelValue, displayValue]) => (
-              <option key={modelValue} value={modelValue}>
-                {displayValue}
-              </option>
-            )
-          )}
-        </select>
-        <img className="chevron-down" src={chevronDownIcon} alt="icon" />
+      <div className="filters-wrapper">
+        <div className="date-input-container">
+          <DatePicker
+            className="expiration-date-input"
+            placeholder={t(translationKeys.EXPIRATION_DATE)}
+            value={filters.expirationDate.event as any}
+            format="YYYY/MM/DD"
+            onChange={handleFilterDate}
+            suffixIcon={
+              <ChevronDownIcon
+                color={filters.expirationDate.event ? "#000000" : "#9e9d9f"}
+                size={20}
+              />
+            }
+            onResetCapture={() =>
+              handleFilterDate({} as React.ChangeEvent<HTMLInputElement>, "")
+            }
+            autoFocus={false}
+          />
+        </div>
+        <div className="doc-type-selector-wrapper">
+          <Select
+            value={filters?.documentType}
+            // defaultValue={DEFAULT_TYPE}
+            onChange={handleFilterType}
+            className="doc-type-selector"
+            placeholder={t(translationKeys.DOCUMENT_TYPE)}
+            dropdownStyle={{
+              backgroundColor: "#ffffff",
+              borderRadius: "6px",
+              borderColor: "red",
+              color: "#ffffff",
+            }}
+            placement="bottomRight"
+            autoFocus={false}
+            suffixIcon={
+              <ChevronDownIcon
+                color={
+                  filters?.documentType === DEFAULT_TYPE ? "#000000" : "#9e9d9f"
+                }
+                size={20}
+              />
+            }
+          >
+            <Select.Option value={DEFAULT_TYPE} key={DEFAULT_TYPE}>
+              {DEFAULT_TYPE}
+            </Select.Option>
+            {Object.entries(documentTypeMapping).map(
+              ([modelValue, displayValue]) => (
+                <Select.Option key={modelValue} value={modelValue}>
+                  {displayValue}
+                </Select.Option>
+              )
+            )}
+          </Select>
+        </div>
       </div>
     </div>
   );

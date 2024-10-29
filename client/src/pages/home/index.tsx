@@ -8,8 +8,6 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import "./styles.css";
 
-// import img1 from "../../assets/img/img-case1.svg";
-
 const Home = () => {
   const { t } = useTranslation();
 

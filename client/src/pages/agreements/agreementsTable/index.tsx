@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SortingIcon from "../../../components/SVGIcons/SortingIcon";
 import SortingUpIcon from "../../../components/SVGIcons/SortingUpIcon";
 import SortingDownIcon from "../../../components/SVGIcons/SortingDownIcon";
@@ -6,13 +6,31 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { AgreementDocument } from "../../../types";
 import { getColumns, getNestedValue } from "../helper";
-import "./styles.css";
 import PaginationTable from "./pagination";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../../lang/translationKeys";
 import TableFilters from "./filters";
+import {
+  DEFAULT_PAGE_NUMBER,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_PAGE_SIZE_MOBILE,
+} from "../../../constants";
+import { DefaultOptionType } from "antd/es/select";
+import "./styles.css";
 
 type TSortTable = "ASC" | "DESC";
+
+export type TEventDate = {
+  date: string | undefined;
+  event: React.ChangeEvent<HTMLSelectElement>;
+};
+export const DEFAULT_TYPE = "Document Type";
+export type TFilterTable = {
+  searchText: string;
+  documentType: string | undefined;
+  expirationDate: TEventDate;
+};
+
 interface SortConfig {
   key: string;
   direction: TSortTable;
@@ -26,23 +44,84 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [pageSize, setPageSize] = useState(10);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [searchText, setSearchText] = useState("");
+  const [isMobileView, setIsMobileView] = useState(false);
+  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const [pageSizeMobile, setPageSizeMobile] = useState(
+    DEFAULT_PAGE_SIZE_MOBILE
+  );
+  const [pageNumber, setPageNumber] = useState(DEFAULT_PAGE_NUMBER);
+
+  const [filters, setFilters] = useState<TFilterTable>({
+    searchText: "",
+    expirationDate: {} as TEventDate,
+    documentType: undefined as string | undefined,
+  });
+
+  const [filteredData, setFilteredData] = useState(data);
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setFilters((prev) => ({
+      ...prev,
+      searchText: value,
+    }));
+  };
+  const handleFilterDate = (date: any, dateString: string | string[]) => {
+    const selectedDate = Array.isArray(dateString) ? dateString[0] : dateString;
+
+    setFilters((prev) => ({
+      ...prev,
+      expirationDate: date
+        ? { date: selectedDate, event: date }
+        : ({} as TEventDate),
+    }));
+  };
+  const handleFilterType = (
+    value: string,
+    option: DefaultOptionType | DefaultOptionType[]
+  ) => {
+    setFilters((prev) => ({
+      ...prev,
+      documentType:
+        value !== DEFAULT_TYPE ? value : (undefined as string | undefined),
+    }));
+  };
+  useEffect(() => {
+    let filtered = data;
+    if (filters.searchText) {
+      filtered = filtered.filter((item) =>
+        item.data.name.toLowerCase().includes(filters.searchText.toLowerCase())
+      );
+    }
+
+    if (filters.documentType) {
+      filtered = filtered.filter(
+        (item) => item.data.agreementType === filters.documentType
+      );
+    }
+
+    if (filters.expirationDate.date) {
+      console.log(filters.expirationDate.date);
+      filtered = filtered.filter((item) => {
+        let itemExpirationDate = item.data.expirationDate;
+
+        if (itemExpirationDate) {
+          return moment(itemExpirationDate).isSame(
+            moment(filters.expirationDate.date),
+            "day"
+          );
+        }
+
+        return false;
+      });
+    }
+
+    setFilteredData(filtered);
+  }, [filters, data]);
+
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: "",
     direction: "ASC",
   });
-  const [filteredData, setFilteredData] = useState(data);
-  const startIndex = (pageNumber - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const [documentType, setDocumentType] = useState<string | undefined>(
-    undefined
-  );
-  const [expirationDate, setExpirationDate] = useState<string | undefined>(
-    undefined
-  );
-
   const handleSort = (key: string) => {
     let direction: TSortTable = "ASC";
     if (sortConfig.key === key && sortConfig.direction === "ASC") {
@@ -50,7 +129,6 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
     }
     setSortConfig({ key, direction });
   };
-
   const sortedData = [...filteredData].sort((a, b) => {
     if (!sortConfig.key) return 0;
 
@@ -67,94 +145,77 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
   });
   const renderSortIcon = (key: string) => {
     if (sortConfig.key !== key) {
-      return <SortingIcon />;
+      return <SortingIcon size={14} />;
     }
+
     return sortConfig.direction === "ASC" ? (
-      <SortingUpIcon />
+      <SortingUpIcon size={14} />
     ) : (
-      <SortingDownIcon />
+      <SortingDownIcon size={14} />
     );
   };
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchText(value);
-    const filtered = data.filter((item) =>
-      item.data.name.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredData(filtered);
-  };
-
-  const handleFilterType = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setDocumentType(value);
-    const filtered = value
-      ? data.filter((item) => item.data.agreementType === value)
-      : data.filter((item) => item.data.agreementType);
-    setFilteredData(filtered);
-  };
-
-  const handleFilterDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setExpirationDate(value);
-    const filtered = data.filter((item) =>
-      moment(item.data.expirationDate).isSame(moment(value), "day")
-    );
-    setFilteredData(filtered);
-  };
-
-  const handleNextPage = () => {
-    if (pageNumber < Math.ceil(filteredData.length / pageSize)) {
-      setPageNumber((prev) => prev + 1);
-    }
-  };
-
-  const handlePreviousPage = () => {
-    if (pageNumber > 1) {
-      setPageNumber((prev) => prev - 1);
-    }
-  };
-
-  const handleFirstPage = () => {
-    setPageNumber(1);
-  };
-
-  const handleLastPage = () => {
+  const canLoadMoreMobileData = data.length > pageSizeMobile;
+  const startIndex = isMobileView ? 0 : (pageNumber - 1) * pageSize;
+  const endIndex = isMobileView ? pageSizeMobile : startIndex + pageSize;
+  const handleNextPage = () =>
+    pageNumber < Math.ceil(filteredData.length / pageSize) &&
+    setPageNumber((prev) => prev + 1);
+  const handlePreviousPage = () =>
+    pageNumber > 1 && setPageNumber((prev) => prev - 1);
+  const handleFirstPage = () => setPageNumber(1);
+  const handleLastPage = () =>
     setPageNumber(Math.ceil(filteredData.length / pageSize));
-  };
+  const handleLoadMore = () =>
+    canLoadMoreMobileData &&
+    setPageSizeMobile((prev) => prev + DEFAULT_PAGE_SIZE_MOBILE);
 
-  const handleAction = (record: AgreementDocument) => {
+  const handleAction = (record: AgreementDocument) =>
     navigate(`/agreement-details/${record.id}`);
-  };
+  const columns = getColumns(handleAction, t);
 
-  const columns = getColumns(handleAction);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 705);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div className="content-container">
       <div className="content-wrap-container">
         <TableFilters
-          searchText={searchText}
-          expirationDate={expirationDate}
-          documentType={documentType}
+          filters={filters}
           handleSearch={handleSearch}
           handleFilterDate={handleFilterDate}
           handleFilterType={handleFilterType}
         />
-        {!!filteredData.length ? (
+        {filteredData.length ? (
           <div className="table-container">
             <table className="custom-table">
               <thead>
                 <tr>
                   {columns.map((col, index) => (
-                    <th scope="col" key={col.dataIndex}>
-                      <div
-                        className="table-th-container"
+                    <th
+                      scope="col"
+                      key={index + new Date().getUTCMilliseconds()}
+                    >
+                      <button
+                        className="icon-button"
                         onClick={() => handleSort(col.key)}
                       >
-                        {col.title.toUpperCase()}
-                        {index !== columns.length - 1 &&
-                          renderSortIcon(col.dataIndex ?? col.key)}
-                      </div>
+                        <div className="table-th-container">
+                          <span>{col.title.toUpperCase()}</span>
+                          {index !== columns.length - 1 &&
+                            renderSortIcon(col.dataIndex ?? col.key)}
+                        </div>
+                      </button>
                     </th>
                   ))}
                 </tr>
@@ -163,7 +224,10 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
                 {sortedData.slice(startIndex, endIndex).map((item) => (
                   <tr key={item.id}>
                     {columns.map((col, index) => (
-                      <td key={index} data-label={col.title}>
+                      <td
+                        key={index + new Date().getUTCMilliseconds()}
+                        data-label={col.title}
+                      >
                         {col.render(undefined, item)}
                       </td>
                     ))}
@@ -171,10 +235,23 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
                 ))}
               </tbody>
             </table>
-            <div className="pagination-table">
+
+            {isMobileView ? (
+              <div className="load-more-btn-section">
+                {canLoadMoreMobileData && (
+                  <button
+                    className="load-more-btn"
+                    disabled={!canLoadMoreMobileData}
+                    onClick={handleLoadMore}
+                  >
+                    {t(translationKeys.LOAD_MORE)}
+                  </button>
+                )}
+              </div>
+            ) : (
               <PaginationTable
                 pageSize={pageSize}
-                pageNumber={pageNumber}
+                currentPageNumber={pageNumber}
                 setPageSize={setPageSize}
                 handleNextPage={handleNextPage}
                 handlePreviousPage={handlePreviousPage}
@@ -185,22 +262,22 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
                 handleLastPage={handleLastPage}
                 filteredData={filteredData}
               />
-            </div>
+            )}
           </div>
         ) : (
           <div className="table-container">
             <div className="empty-data">
               <h2>
                 {t(
-                  searchText
+                  filters.searchText
                     ? translationKeys.SEARCH_NO_DATA_TITLE
                     : translationKeys.NO_DATA_TO_SHOWN,
-                  searchText ? { searchTerm: searchText } : undefined
+                  filters.searchText ? { searchTerm: filters.searchText } : {}
                 )}
               </h2>
               <p>
                 {t(
-                  searchText
+                  filters.searchText
                     ? translationKeys.SEARCH_NO_DATA
                     : translationKeys.NO_DATA_TO_SHOWN
                 )}

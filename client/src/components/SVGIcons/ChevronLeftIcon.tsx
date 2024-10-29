@@ -1,7 +1,7 @@
 // import React from 'react';
 // import './styles.css';
 
-const ArrowLeft = ({ color = "#000000", size = 24 }) => {
+const ChevronLeftIcon = ({ color = "#000000", size = 24 }) => {
   return (
     <svg width={size} height={size} viewBox="0 0 6 10" fill="none">
       <path
@@ -14,4 +14,4 @@ const ArrowLeft = ({ color = "#000000", size = 24 }) => {
   );
 };
 
-export default ArrowLeft;
+export default ChevronLeftIcon;

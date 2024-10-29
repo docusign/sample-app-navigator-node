@@ -1,14 +1,19 @@
 import React from "react";
-import arrowLeft from "../../../../assets/img/arrowLeft.svg";
-import arrowRight from "../../../../assets/img/arrowRight.svg";
-import twiceArrowLeft from "../../../../assets/img/twiceArrowLeft.svg";
-import twiceArrowRight from "../../../../assets/img/twiceArrowRight.svg";
+import ChevronLeftIcon from "../../../../components/SVGIcons/ChevronLeftIcon";
+import ChevronRightIcon from "../../../../components/SVGIcons/ChevronRightIcon";
+import TwiceChevronLeftIcon from "../../../../components/SVGIcons/TwiceChevronLeftIcon";
+import TwiceChevronRightIcon from "../../../../components/SVGIcons/TwiceChevronRightIcon";
 import { AgreementDocument } from "../../../../types";
+import { useTranslation } from "react-i18next";
+import { translationKeys } from "../../../../lang/translationKeys";
+import Select from "antd/es/select";
+import { DEFAULT_PAGE_SIZE } from "../../../../constants";
+import ChevronDownIcon from "../../../../components/SVGIcons/ChevronDownIcon";
 import "./styles.css";
 
 type PaginationTableProps = {
   pageSize: number;
-  pageNumber: number;
+  currentPageNumber: number;
   setPageSize: (size: number) => void;
   handleNextPage: () => void;
   handlePreviousPage: () => void;
@@ -20,7 +25,7 @@ type PaginationTableProps = {
 
 const PaginationTable: React.FC<PaginationTableProps> = ({
   pageSize,
-  pageNumber,
+  currentPageNumber,
   setPageSize,
   handleNextPage,
   handlePreviousPage,
@@ -29,9 +34,11 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
   handleLastPage,
   filteredData,
 }) => {
+  const { t } = useTranslation();
+
   const totalPages = Math.ceil(filteredData.length / pageSize);
 
-  var startPage = Math.max(1, pageNumber - 2);
+  let startPage = Math.max(1, currentPageNumber - 2);
   const endPage = Math.min(totalPages, startPage + 4);
   if (endPage - startPage < 4) {
     startPage = Math.max(1, endPage - 4);
@@ -42,45 +49,103 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
     pageNumbers.push(i);
   }
 
+  const isFirstPageAllowed = currentPageNumber > startPage;
+  const isPreviousPageAllowed = currentPageNumber > startPage;
+  const isLastPageAllowed = currentPageNumber < endPage;
+  const isNextPageAllowed = currentPageNumber < endPage;
+
   return (
     <div className="pagination-container">
       <div>
-        {" "}
         <span>
-          Showing 1-{Math.min(pageSize, filteredData.length)} of{" "}
-          {filteredData.length}
+          {`${t(translationKeys.SHOWING)} ${Math.min(
+            pageSize,
+            filteredData.length
+          )} ${t(translationKeys.OF)} ${filteredData.length}`}
         </span>
       </div>
       <div className="page-clicker-container">
-        <img src={twiceArrowLeft} alt="icon" onClick={handleFirstPage} />
-        <img src={arrowLeft} alt="icon" onClick={handlePreviousPage} />
+        <button
+          className="icon-button"
+          disabled={!isFirstPageAllowed}
+          onClick={handleFirstPage}
+        >
+          <TwiceChevronLeftIcon
+            color={isFirstPageAllowed ? "#000000" : "#9e9d9f"}
+            size={14}
+          />
+        </button>
+        <button
+          className="icon-button"
+          disabled={!isPreviousPageAllowed}
+          onClick={handlePreviousPage}
+        >
+          <ChevronLeftIcon
+            color={isPreviousPageAllowed ? "#000000" : "#9e9d9f"}
+            size={12}
+          />
+        </button>
+
         {pageNumbers.map((page) => (
-          <p
+          <button
+            className="icon-button"
             key={page}
             onClick={() => handlePage(page)}
-            className={page === pageNumber ? "current-page" : ""}
           >
-            {page}
-          </p>
+            <p className={page === currentPageNumber ? "current-page" : ""}>
+              {page}
+            </p>
+          </button>
         ))}
 
-        <img src={arrowRight} alt="icon" onClick={handleNextPage} />
-        <img src={twiceArrowRight} alt="icon" onClick={handleLastPage} />
+        <button
+          className="icon-button"
+          disabled={!isNextPageAllowed}
+          onClick={handleNextPage}
+        >
+          <ChevronRightIcon
+            color={isNextPageAllowed ? "#000000" : "#9e9d9f"}
+            size={12}
+          />
+        </button>
+        <button
+          className="icon-button"
+          disabled={!isLastPageAllowed}
+          onClick={handleLastPage}
+        >
+          <TwiceChevronRightIcon
+            color={isLastPageAllowed ? "#000000" : "#9e9d9f"}
+            size={14}
+          />
+        </button>
       </div>
       <div className="page-selector-container">
-        <p>{"Rows per page: "}</p>
-        <select
-          className="page-selector" 
-          value={pageSize}
-          onChange={(e) => setPageSize(Number(e.target.value))}
+        <p>{t(translationKeys.ROWS_PER_PAGE)}</p>
+        <Select
+          onChange={setPageSize}
+          defaultValue={DEFAULT_PAGE_SIZE}
+          dropdownStyle={{
+            backgroundColor: "#ffffff",
+            borderRadius: "6px",
+            width: "60px",
+          }}
+          placement="bottomRight"
+          className="pagination-page-select"
+          suffixIcon={
+            <ChevronDownIcon
+              color={"#9e9d9f"}
+              size={20}
+              className="pagination-chevron-down"
+            />
+          }
         >
-          <option value={10}>10</option>
-          <option value={15}>15</option>
-          <option value={20}>20</option>
-          <option value={25}>25</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>
-        </select>
+          <Select.Option value="10">10</Select.Option>
+          <Select.Option value="15">15</Select.Option>
+          <Select.Option value="20">20</Select.Option>
+          <Select.Option value="25">25</Select.Option>
+          <Select.Option value="50">50</Select.Option>
+          <Select.Option value="100">100</Select.Option>
+        </Select>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
-import ArrowLeft from "../SVGIcons/ArrowLeftIcon";
+import ChevronLeftIcon from "../SVGIcons/ChevronLeftIcon";
 import { useState } from "react";
 import "./styles.css";
 
@@ -32,7 +32,7 @@ const BackButton = ({
         onMouseLeave={() => setIsHovered(false)}
       >
         <div>
-          <ArrowLeft color={isHovered ? "#2420d2" : "#5855FF"} size={12} />
+          <ChevronLeftIcon color={isHovered ? "#2420d2" : "#5855FF"} size={12} />
           <span className={`back-button-text ${textClassName}`}>
             {t(translationKeys.BACK)}
           </span>

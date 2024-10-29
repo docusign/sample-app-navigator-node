@@ -14,28 +14,27 @@ const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
   const { t } = useTranslation();
 
   const agreementType =
-    documentTypeMapping[agreement.data.agreementType as DocumentTypeModel] ??
+    documentTypeMapping[agreement.data?.agreementType as DocumentTypeModel] ??
     "-";
   const party = agreement.data?.parties
-    ? agreement.data?.parties[0]?.name
+    ? agreement.data.parties?.map((party: any) => party.name).join(", ") ?? "-"
     : "-";
-  /* TODO: What nedd to set here? */
-  const contactValue = agreement.data.envelope.recipients
-    ? agreement.data.envelope.recipients[0]?.email
+  const contactValue = agreement.data?.envelope?.recipients
+    ? agreement.data?.envelope?.recipients[0]?.email // TODO: What need to set here?
     : "-";
-  const effectiveDate = agreement.data.effectiveDate
+  const effectiveDate = agreement.data?.effectiveDate
     ? format(new Date(agreement.data.effectiveDate), "yyyy/MM/dd")
     : "-";
-  const expirationDate = agreement.data.expirationDate
+  const expirationDate = agreement.data?.expirationDate
     ? format(new Date(agreement.data.expirationDate), "yyyy/MM/dd")
     : "-";
 
-  const renewalType = "Offer Letter";
-  const renewalNoticePeriod = "-";
-  const renewalNoticeDate = "2024/10/09";
-  const renewalTerm = "1 year";
-  const renewalOwner = "Andy Automator";
-  const additionalInfo =
+  const renewalType = agreement.data?.renewal ?? "-"; // TODO: What need to set here?
+  const renewalNoticePeriod = agreement.data?.terminationNoticePeriod ?? "-"; // TODO: What need to set here?
+  const renewalNoticeDate = "2024/10/09"; // TODO: What need to set here?
+  const renewalTerm = agreement.data?.paymentTerms ?? "1 year"; // TODO: What need to set here?
+  const renewalOwner = "Andy Automator"; // TODO: What need to set here?
+  const additionalInfo = 
     "After the user completes signing the envelope in the embedded signing session, the envelope is redirected to the second signer based on the conditions described in Step 2.";
 
   return (

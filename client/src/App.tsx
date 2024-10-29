@@ -10,6 +10,7 @@ import { ROUTE } from "./constants/routes";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./store";
+import Loader from "./components/loader/loader";
 
 function App() {
   return (
@@ -45,7 +46,7 @@ function App() {
           }}
         >
           <Router>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader />}>
               <Routes>
                 <Route path={ROUTE.ROOT} element={<Home />} />
                 <Route path={ROUTE.AGREEMENTS} element={<Agreements />} />

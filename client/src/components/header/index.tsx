@@ -38,7 +38,11 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
   }, [isDropdownOpen]);
 
   const handleLogoutAction = () => {
-    navigate(`/`);
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("expiresIn");
+
+    navigate(ROUTE.ROOT);
   };
 
   return (

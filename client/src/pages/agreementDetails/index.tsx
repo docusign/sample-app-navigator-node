@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
@@ -10,14 +10,24 @@ import { AgreementDocument } from "../../types";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
 import BackButton from "../../components/backBtn";
+import { fetchAgreementById } from "../../store/state/agreements";
+import { useAppDispatch } from "../../store";
 import "./styles.css";
 
 type AgreementDetailsProps = {};
 
 const AgreementDetails: React.FC<AgreementDetailsProps> = () => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchAgreementById(id));
+    }
+  }, [id, dispatch]);
+
   const agreement = useSelector(getAgreementByIdSelector(id));
 
   return (

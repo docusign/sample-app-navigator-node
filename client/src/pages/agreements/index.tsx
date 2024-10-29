@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store"; // Adjust the import path based on your store setup
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../store";
 import { fetchAgreements } from "../../store/state/agreements";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
@@ -8,30 +8,25 @@ import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
 import SideDescription from "../../components/sideDescription";
 import AgreementsTable from "./agreementsTable";
-
 import "./styles.css";
+import {
+  getAgreementsSelector,
+  isAgreementsLoadingSelector,
+} from "../../store/state/agreements/selectors";
+import Loader from "../../components/loader/loader";
 
 type AgreementsProps = {};
 
 const Agreements: React.FC<AgreementsProps> = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  
-  const { agreements, loading, error } = useSelector(
-    (state: RootState) => state.agreements
-  );
+  const dispatch = useAppDispatch();
+
+  const agreements = useSelector(getAgreementsSelector);
+  const isAgreementsLoading = useSelector(isAgreementsLoadingSelector);
 
   useEffect(() => {
     dispatch(fetchAgreements() as any);
   }, [dispatch]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div className="error-message">{error}</div>;
-  }
 
   return (
     <div className="agreement-page">
@@ -43,7 +38,13 @@ const Agreements: React.FC<AgreementsProps> = () => {
         </div>
         <div className="content-wrapper">
           <div className="agreements-component">
-            <AgreementsTable data={agreements} />
+            {isAgreementsLoading ? (
+              <div className="loader-container">
+              <Loader />
+              </div>
+            ) : (
+              <AgreementsTable data={agreements} />
+            )}
           </div>
           <div className="side-component">
             <SideDescription />

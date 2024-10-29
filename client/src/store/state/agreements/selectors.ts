@@ -1,7 +1,14 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../..";
 
-export const getAgreementsBubbleSelector = createSelector(
+export const isAgreementsLoadingSelector = createSelector(
+    (state: RootState) => state.agreements.loading,
+    (isLoading) => {
+        return isLoading;
+    }
+);
+
+export const getAgreementsSelector = createSelector(
     (state: RootState) => state.agreements.agreements,
     (agreements) => {
         return agreements;

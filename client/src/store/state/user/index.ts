@@ -1,7 +1,6 @@
-import { createSlice, PayloadAction,createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { UserState } from './types';
 import { Lang, UserType } from '../../../types';
-// import API from '../../../libs/API';
 
 const initialState: UserState = {
   user: undefined,
@@ -10,11 +9,6 @@ const initialState: UserState = {
   error: null,
 };
 
-// export const fetchUsers = createAsyncThunk('me/user', async () => {
-//   const response = await API.getUser();
-//   return response.data;
-// });
-
 export const callbackAction = createAsyncThunk(
   'user/callbackAction',
   async (authCode: string, thunkAPI) => {
@@ -22,7 +16,7 @@ export const callbackAction = createAsyncThunk(
       // Replace with the actual endpoint if necessary
       const response = await axios.get<{ success: boolean; accessToken: string }>(`/ds/callback?code=${authCode}`);
       if (response.data.success) {
-        // If successful, return the token or any other relevant data
+
         return response.data.accessToken;
       } else {
         return thunkAPI.rejectWithValue('Login failed');
@@ -50,35 +44,6 @@ const UserSlice = createSlice({
   },
   extraReducers: (builder) => {
     return builder
-    // .addCase(
-    //   fetchUsers.pending,
-    //   (state: { loading: boolean; error: null | string }) => {
-    //     console.log('<< pending');
-    //     state.loading = true;
-    //     state.error = null;
-    //   },
-    // )
-    // .addCase(
-    //   fetchUsers.fulfilled,
-    //   (
-    //     state: { loading: boolean; user: UserType },
-    //     action: PayloadAction<UserType>,
-    //   ) => {
-    //     state.loading = false;
-    //     state.user.name = action.payload?.fullName;
-    //   },
-    // )
-    // .addCase(
-    //   fetchUsers.rejected,
-    //   (
-    //     state: { loading: boolean; error: null | string },
-    //     action: { error: { message: string } },
-    //   ) => {
-    //     console.log('<< ERROR fetchUsers', action.error);
-    //     state.loading = false;
-    //     state.error = action.error.message || 'Failed to fetch user';
-    //   },
-    // );
   },
 });
 

@@ -9,7 +9,7 @@ export const translationKeys = {
 
     NAME: "NAME",
     PARTIES: "PARTIES",
-    DOCUMENT_TYPE: "EXPIRATION_DATE",
+    DOCUMENT_TYPE: "DOCUMENT_TYPE",
     EXPIRATION_DATE: "EXPIRATION_DATE",
     ACTIONS: "ACTIONS",
 

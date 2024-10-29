@@ -7,9 +7,7 @@ import { documentTypeMapping } from "../../helper";
 import { DatePicker, Select } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import { DEFAULT_TYPE, TFilterTable } from "..";
-
 import "./styles.css";
-import { DEFAULT_PAGE_NUMBER } from "../../../../constants/table";
 
 type TableFilterProps = {
   filters: TFilterTable;
@@ -71,7 +69,6 @@ const TableFilters: React.FC<TableFilterProps> = ({
         <div className="doc-type-selector-wrapper">
           <Select
             value={filters?.documentType}
-            // defaultValue={DEFAULT_TYPE}
             onChange={handleFilterType}
             className="doc-type-selector"
             placeholder={t(translationKeys.DOCUMENT_TYPE)}

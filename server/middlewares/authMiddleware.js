@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
 
     const currentToken = authHeader.split(' ')[1];
 
-    const userInfoUrl = 'https://account-d.docusign.com/oauth/userinfo';
+    const userInfoUrl = `${config.docusign.baseURL}/oauth/userinfo`;
 
     try {
       const response = await axios.get(userInfoUrl, {

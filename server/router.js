@@ -14,7 +14,10 @@ router.get('/healthcheck', (req, res) => {
 });
 
 router.get('/ds/authorize', (req, res) => {
-  const oauthUrl = `https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature%20adm_store_unified_repo_read%20adm_store_unified_repo_write%20agreement_object_model_read%20models_read%20models_write%20ais_analyze%20apr_read%20apr_write&client_id=${config.docusign.clientId}&redirect_uri=${config.docusign.redirectUri}&state=random_state_string`;
+  const clientId = req.query.clientId || config.docusign.clientId;
+  const redirectUri = req.query.redirectUri || config.docusign.redirectUri;
+
+  const oauthUrl = `${config.docusign.baseURL}/oauth/auth?response_type=code&scope=signature%20adm_store_unified_repo_read%20adm_store_unified_repo_write%20agreement_object_model_read%20models_read%20models_write%20ais_analyze%20apr_read%20apr_write&client_id=${clientId}&redirect_uri=${redirectUri}&state=random_state_string`;
 
   res.redirect(oauthUrl);
 });

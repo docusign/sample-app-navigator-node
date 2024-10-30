@@ -83,3 +83,10 @@
     padding: 10px;
   }
 }
+
+.pagination-icon {
+  color: #000000;
+}
+.pagination-icon-disabled {
+  color: #9e9d9f;
+}

@@ -2,12 +2,26 @@ import { format } from "date-fns";
 import { AgreementDocument, DocumentTypeModel } from "../../types";
 import { TFunction } from "i18next";
 import { translationKeys } from "../../lang/translationKeys";
-import { Party } from "../../types/agreement";
 
-export const documentTypeMapping: Record<DocumentTypeModel, string> = {
+const documentTypeMapping: Record<DocumentTypeModel, string> = {
   [DocumentTypeModel.OTHER_LETTER]: "Offer Letter",
   [DocumentTypeModel.ORDER_FORM]: "Order Form",
   [DocumentTypeModel.OTHER]: "Other",
+};
+export const mapDocumentType = (agreementType: string | null | undefined) => {
+  if (!agreementType) {
+    return "-";
+  }
+
+  const mappedType = documentTypeMapping[agreementType as DocumentTypeModel];
+  return mappedType ?? agreementType;
+};
+
+export const getUniqueDocumentTypes = (
+  agreements: AgreementDocument[]
+): string[] => {
+  const types = agreements.map((a) => mapDocumentType(a.data.agreementType));
+  return Array.from(new Set(types));
 };
 
 export const getColumns = (
@@ -35,9 +49,7 @@ export const getColumns = (
       return (
         <div className="table-doc-type-container">
           <span className="table-doc-type">
-            {documentTypeMapping[
-              record.data.agreementType as DocumentTypeModel
-            ] ?? "-"}
+            {mapDocumentType(record.data.agreementType)}
           </span>
         </div>
       );
@@ -74,9 +86,7 @@ export const getNestedValue = (obj: AgreementDocument, path: string) => {
         obj.data.parties?.map((party: any) => party.name).join(", ") ?? "-"
       );
     case "agreementType":
-      return (
-        documentTypeMapping[obj.data.agreementType as DocumentTypeModel] ?? "-"
-      );
+      return mapDocumentType(obj.data.agreementType);
     case "expirationDate":
       return obj.data.expirationDate
         ? new Date(obj.data.expirationDate)

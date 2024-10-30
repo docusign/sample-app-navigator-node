@@ -15,6 +15,14 @@ const Home: React.FC = () => {
     window.location.href = API_LINKS.AUTHORIZE;
   };
 
+  const handleTestAccount1AuthCallback = () => {
+    window.location.href = API_LINKS.AUTHORIZE_TEST_1;
+  };
+
+  const handleTestAccount2AuthCallback = () => {
+    window.location.href = API_LINKS.AUTHORIZE_TEST_2;
+  };
+
   return (
     <div className="home-page">
       <Header className="home-header" />
@@ -33,8 +41,8 @@ const Home: React.FC = () => {
           description={t(translationKeys.HOME_HEADER_CARD_SUBTITLE)}
           btnTitle1={t(translationKeys.HOME_HEADER_CARD_BTN_TITLE1)}
           btnTitle2={t(translationKeys.HOME_HEADER_CARD_BTN_TITLE2)}
-          onClickBtn1={handleAuthCallback}
-          onClickBtn2={handleAuthCallback}
+          onClickBtn1={handleTestAccount1AuthCallback}
+          onClickBtn2={handleTestAccount2AuthCallback}
         />
       </div>
       <Footer />

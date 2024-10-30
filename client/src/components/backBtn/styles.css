@@ -9,6 +9,10 @@
   padding: 0 !important;
   background: none !important;
 }
+.back-button-icon {
+  color: #5855ff;
+}
+.back-button:hover .back-button-icon,
 .back-button:hover .back-button-text {
   color: #2420d2;
 }

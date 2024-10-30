@@ -17,22 +17,15 @@ const BackButton = ({
   textClassName = "",
 }: FooterProps) => {
   const { t } = useTranslation();
-
   const navigate = useNavigate();
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleBack = () => navigate(-1);
 
   return (
     <div className={`back-button-container ${className}`}>
-      <button
-        className={`back-button ${btnClassName}`}
-        onClick={handleBack}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+      <button className={`back-button ${btnClassName}`} onClick={handleBack}>
         <div>
-          <ChevronLeftIcon color={isHovered ? "#2420d2" : "#5855FF"} size={12} />
+          <ChevronLeftIcon className={"back-button-icon"} size={12} />
           <span className={`back-button-text ${textClassName}`}>
             {t(translationKeys.BACK)}
           </span>

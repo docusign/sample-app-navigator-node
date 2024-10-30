@@ -7,11 +7,16 @@ export const ROUTE = {
 };
 
 export const API_LINKS = {
-  AUTHORIZE: 'http://localhost:8080/ds/authorize',
-  GET_AGREEMENTS: 'http://localhost:8080/api/agreements'
+  AUTHORIZE: process.env.REACT_APP_API_AUTHORIZE ?? "AUTHORIZE",
+  AUTHORIZE_TEST_1: process.env.REACT_APP_API_AUTHORIZE_TEST_1 ?? "AUTHORIZE_TEST_1",
+  AUTHORIZE_TEST_2: process.env.REACT_APP_API_AUTHORIZE_TEST_2 ?? "AUTHORIZE_TEST_2",
+  GET_AGREEMENTS: process.env.REACT_APP_API_GET_AGREEMENTS ?? "GET_AGREEMENTS",
 };
 
 export const LINKS = {
-  API_HOME_PAGE: 'https://github.com/docusign/sample-app-navigator-node',
-  GITHUB: 'https://github.com/docusign/sample-app-navigator-node',
+  API_HOME_PAGE: process.env.REACT_APP_LINKS_API_HOME_PAGE ?? "API_HOME_PAGE",
+  GITHUB: process.env.REACT_APP_LINKS_GITHUB ?? "GITHUB",
+  ACC_BRANDS_CREATE: process.env.REACT_APP_LINKS_ACC_BRANDS_CREATE ?? "ACC_BRANDS_CREATE",
+  ACC_BRANDS_LIST: process.env.REACT_APP_LINKS_ACC_BRANDS_LIST ?? "ACC_BRANDS_LIST",
+  ACC_BRANDS_LIST1: process.env.REACT_APP_LINKS_ACC_BRANDS_LIST ?? "ACC_BRANDS_LIST1",
 };

@@ -1,9 +1,9 @@
 // import React from 'react';
 // import './styles.css';
 
-const ChevronDownIcon = ({ color = "#000000", size = 24, className="" }) => {
+const ChevronUpIcon = ({ color = "#000000", size = 24, className="" }) => {
   return (
-    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" className={className}>
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" className={className} transform="rotate(180 0 0)">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -14,4 +14,4 @@ const ChevronDownIcon = ({ color = "#000000", size = 24, className="" }) => {
   );
 };
 
-export default ChevronDownIcon;
+export default ChevronUpIcon;

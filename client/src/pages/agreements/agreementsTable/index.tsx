@@ -5,7 +5,12 @@ import SortingDownIcon from "../../../components/SVGIcons/SortingDownIcon";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { AgreementDocument } from "../../../types";
-import { getColumns, getNestedValue } from "../helper";
+import {
+  getColumns,
+  getNestedValue,
+  getUniqueDocumentTypes,
+  mapDocumentType,
+} from "../helper";
 import PaginationTable from "./pagination";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../../lang/translationKeys";
@@ -22,7 +27,7 @@ type TSortTable = "ASC" | "DESC";
 
 export type TEventDate = {
   date: string | undefined;
-  event: React.ChangeEvent<HTMLSelectElement>;
+  event: React.ChangeEvent<HTMLSelectElement> | null;
 };
 export const DEFAULT_TYPE = "Document Type";
 export type TFilterTable = {
@@ -58,14 +63,14 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
   });
 
   const [filteredData, setFilteredData] = useState(data);
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement> | null) => {
+    const value = event?.target?.value ?? "";
     setFilters((prev) => ({
       ...prev,
       searchText: value,
     }));
   };
-  const handleFilterDate = (date: any, dateString: string | string[]) => {
+  const handleFilterDate = (date?: any, dateString?: string | string[]) => {
     const selectedDate = Array.isArray(dateString) ? dateString[0] : dateString;
 
     setFilters((prev) => ({
@@ -95,12 +100,12 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
 
     if (filters.documentType) {
       filtered = filtered.filter(
-        (item) => item.data.agreementType === filters.documentType
+        (item) =>
+          mapDocumentType(item.data.agreementType) === filters.documentType
       );
     }
 
     if (filters.expirationDate.date) {
-      console.log(filters.expirationDate.date);
       filtered = filtered.filter((item) => {
         let itemExpirationDate = item.data.expirationDate;
 
@@ -192,6 +197,7 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
       <div className="content-wrap-container">
         <TableFilters
           filters={filters}
+          uniqueTypes={getUniqueDocumentTypes(data)}
           handleSearch={handleSearch}
           handleFilterDate={handleFilterDate}
           handleFilterType={handleFilterType}

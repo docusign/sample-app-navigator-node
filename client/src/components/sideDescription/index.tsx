@@ -4,6 +4,7 @@ import plus from "../../assets/img/plus.svg";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
 import "./styles.css";
+import { LINKS } from "../../constants";
 
 const SideDescription = () => {
   const { t } = useTranslation();
@@ -25,25 +26,41 @@ const SideDescription = () => {
         </ul>
         <h3>{t(translationKeys.SIDE_HEADER3)}</h3>
         <p>
-          See the<strong> AccountBrands:create </strong>and envelope source
-          code.
+          {t(translationKeys.SIDE_PARAGRAPH1_BEFORE_LINK)}{" "}
+          <a
+            className="description-link"
+            href={LINKS.ACC_BRANDS_CREATE}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t(translationKeys.SIDE_LINK_ACCOUNT_BRANDS_CREATE)}
+          </a>{" "}
+          {t(translationKeys.SIDE_PARAGRAPH1_AFTER_LINK)}
         </p>
         <h3>{t(translationKeys.SIDE_HEADER4)}</h3>
         <p>
-          After the form is submitted, call the
-          <strong> AccountBrands:list </strong>method on the account to check if
-          the brand you want to create already exists. If it does, find the
-          corresponding brand ID. If not, call the
-          <strong> AccountBrands:create </strong>
-          method to create a new brand.
+          {t(translationKeys.SIDE_PARAGRAPH2_BEFORE_LINK)}{" "}
+          <a
+            className="description-link"
+            href={LINKS.ACC_BRANDS_LIST}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t(translationKeys.SIDE_LINK_ACCOUNT_BRANDS_LIST)}
+          </a>{" "}
+          {t(translationKeys.SIDE_PARAGRAPH2_AFTER_LINK)}{" "}
+          <a
+            className="description-link"
+            href={LINKS.ACC_BRANDS_CREATE}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t(translationKeys.SIDE_LINK_ACCOUNT_BRANDS_CREATE)}
+          </a>{" "}
+          {t(translationKeys.SIDE_PARAGRAPH2_END)}
         </p>
-        <p>The brand ID is then stored for the next step. </p> <br></br>
-        <p>
-          After the user completes signing the envelope in the embedded signing
-          session, the envelope is redirected to the second signer based on the
-          conditions described in Step 2. After the user completes signing the
-          envelope in the
-        </p>
+        <p>{t(translationKeys.SIDE_PARAGRAPH3)}</p> <br />
+        <p>{t(translationKeys.SIDE_PARAGRAPH4)}</p>
       </div>
     ),
     [t]

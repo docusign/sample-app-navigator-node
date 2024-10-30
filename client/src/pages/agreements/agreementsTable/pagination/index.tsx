@@ -71,7 +71,11 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
           onClick={handleFirstPage}
         >
           <TwiceChevronLeftIcon
-            color={isFirstPageAllowed ? "#000000" : "#9e9d9f"}
+            className={
+              isFirstPageAllowed
+                ? "pagination-icon"
+                : "pagination-icon-disabled"
+            }
             size={14}
           />
         </button>
@@ -81,7 +85,11 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
           onClick={handlePreviousPage}
         >
           <ChevronLeftIcon
-            color={isPreviousPageAllowed ? "#000000" : "#9e9d9f"}
+            className={
+              isFirstPageAllowed
+                ? "pagination-icon"
+                : "pagination-icon-disabled"
+            }
             size={12}
           />
         </button>
@@ -104,7 +112,11 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
           onClick={handleNextPage}
         >
           <ChevronRightIcon
-            color={isNextPageAllowed ? "#000000" : "#9e9d9f"}
+            className={
+              isFirstPageAllowed
+                ? "pagination-icon"
+                : "pagination-icon-disabled"
+            }
             size={12}
           />
         </button>
@@ -114,7 +126,11 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
           onClick={handleLastPage}
         >
           <TwiceChevronRightIcon
-            color={isLastPageAllowed ? "#000000" : "#9e9d9f"}
+            className={
+              isFirstPageAllowed
+                ? "pagination-icon"
+                : "pagination-icon-disabled"
+            }
             size={14}
           />
         </button>
@@ -132,11 +148,7 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
           placement="bottomRight"
           className="pagination-page-select"
           suffixIcon={
-            <ChevronDownIcon
-              color={"#9e9d9f"}
-              size={20}
-              className="pagination-chevron-down"
-            />
+            <ChevronDownIcon size={20} className="pagination-chevron-down" />
           }
         >
           <Select.Option value="10">10</Select.Option>

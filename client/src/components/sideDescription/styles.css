@@ -77,6 +77,11 @@
     padding-left: 0;
   }
 
+  .description-link {
+    color: #5855ff;
+    font-weight: bold;
+  }
+
   strong {
     color: #5855ff;
   }

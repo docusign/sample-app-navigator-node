@@ -1,9 +1,9 @@
 import React from "react";
 import { format } from "date-fns";
-import { AgreementDocument, DocumentTypeModel } from "../../../types";
+import { AgreementDocument } from "../../../types";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../../lang/translationKeys";
-import { documentTypeMapping } from "../../agreements/helper";
+import { mapDocumentType } from "../../agreements/helper";
 import "./styles.css";
 
 type AgreementCardProps = {
@@ -13,14 +13,14 @@ type AgreementCardProps = {
 const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
   const { t } = useTranslation();
 
-  const agreementType =
-    documentTypeMapping[agreement.data?.agreementType as DocumentTypeModel] ??
-    "-";
+  const agreementType = mapDocumentType(agreement.data?.agreementType);
   const party = agreement.data?.parties
     ? agreement.data.parties?.map((party: any) => party.name).join(", ") ?? "-"
     : "-";
   const contactValue = agreement.data?.envelope?.recipients
-    ? agreement.data?.envelope?.recipients[0]?.email // TODO: What need to set here?
+    ? agreement.data?.envelope?.recipients
+        ?.map((r: any) => r?.email)
+        .join(", ") ?? "-" // TODO: What need to set here?
     : "-";
   const effectiveDate = agreement.data?.effectiveDate
     ? format(new Date(agreement.data.effectiveDate), "yyyy/MM/dd")
@@ -34,7 +34,7 @@ const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
   const renewalNoticeDate = "2024/10/09"; // TODO: What need to set here?
   const renewalTerm = agreement.data?.paymentTerms ?? "1 year"; // TODO: What need to set here?
   const renewalOwner = "Andy Automator"; // TODO: What need to set here?
-  const additionalInfo = 
+  const additionalInfo =
     "After the user completes signing the envelope in the embedded signing session, the envelope is redirected to the second signer based on the conditions described in Step 2.";
 
   return (

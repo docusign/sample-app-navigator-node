@@ -124,6 +124,18 @@
     color: #bfd7ff;
   }
 }
+.navLink-text {
+  color: #b3b8ff;
+  transition: color 0.3s;
+}
+.navLink-icon {
+  color: #b3b8ff;
+  transition: color 0.3s;
+}
+.navLink:hover .navLink-text,
+.navLink:hover .navLink-icon {
+  color: #bfd7ff;
+}
 
 .desktop-view {
   display: flex;

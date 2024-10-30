@@ -18,7 +18,7 @@ const callBackController = async (req, res) => {
     }).toString();
 
     const tokenResponse = await axios.post(
-      'https://account-d.docusign.com/oauth/token',
+      `${config.docusign.baseURL}/oauth/token`,
       requestData,
       {
         headers: {
@@ -40,7 +40,7 @@ const callBackController = async (req, res) => {
       expiresIn: expires_in,
     };
 
-    res.redirect(`http://localhost:3000/auth-callback?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`);
+    res.redirect(`${config.client.port}/auth-callback?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`);
   } catch (error) {
     console.error(error);
     res.status(500).json({

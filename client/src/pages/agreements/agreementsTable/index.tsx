@@ -135,10 +135,11 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
     setSortConfig({ key, direction });
   };
   const sortedData = [...filteredData].sort((a, b) => {
-    if (!sortConfig.key) return 0;
+    let sortKey = sortConfig.key;
+    if (!sortKey) sortKey = "name";
 
-    const aValue = getNestedValue(a, sortConfig.key);
-    const bValue = getNestedValue(b, sortConfig.key);
+    const aValue = getNestedValue(a, sortKey);
+    const bValue = getNestedValue(b, sortKey);
 
     if (aValue < bValue) {
       return sortConfig.direction === "ASC" ? -1 : 1;
@@ -153,7 +154,7 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
       return <SortingIcon size={14} />;
     }
 
-    return sortConfig.direction === "ASC" ? (
+    return sortConfig.direction === "DESC" ? (
       <SortingUpIcon size={14} />
     ) : (
       <SortingDownIcon size={14} />

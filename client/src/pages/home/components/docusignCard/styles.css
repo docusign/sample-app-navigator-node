@@ -9,7 +9,7 @@
 
 .docusign-card {
   position: relative;
-  padding: 40px;
+  padding: 60px 150px 60px 150px;
   border-radius: 24px;
   background-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
@@ -98,12 +98,18 @@
   outline: none;
 }
 
+@media (max-width: 1024px) {
+  .docusign-card {
+    padding: 40px;
+  }
+}
+
 @media (max-width: 600px) {
   .docusign-container {
     margin-top: 5%;
   }
 
-  .docusign-card {  
+  .docusign-card {
     h2 {
       font-weight: 700;
       font-size: 24px;

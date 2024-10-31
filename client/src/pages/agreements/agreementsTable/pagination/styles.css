@@ -57,7 +57,7 @@
   align-items: center;
 
   img {
-    color: #000000;
+    color: #151515;
     padding: 6px;
   }
 
@@ -73,19 +73,25 @@
     margin: 0;
   }
 
-  p {
+  .icon-button {
+    min-width: 50px;
+    min-height: 50px;
+  }
+
+  .icon-button p {
     font-family: "Sora", bold !important;
-    font-weight: 400;
+    font-weight: 400 !important;
     font-size: 14px;
     line-height: 20px;
-    color: #000000;
+    color: #151515;
     margin: 0;
     padding: 10px;
   }
 }
 
 .pagination-icon {
-  color: #000000;
+  color: #151515;
+  padding: 0px 0px 0px 0px;
 }
 .pagination-icon-disabled {
   color: #9e9d9f;

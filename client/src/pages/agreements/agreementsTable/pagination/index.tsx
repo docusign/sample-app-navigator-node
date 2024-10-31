@@ -76,7 +76,7 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
                 ? "pagination-icon"
                 : "pagination-icon-disabled"
             }
-            size={14}
+            size={12}
           />
         </button>
         <button
@@ -90,7 +90,7 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
                 ? "pagination-icon"
                 : "pagination-icon-disabled"
             }
-            size={12}
+            size={10}
           />
         </button>
 
@@ -113,11 +113,11 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
         >
           <ChevronRightIcon
             className={
-              isFirstPageAllowed
+              isNextPageAllowed
                 ? "pagination-icon"
                 : "pagination-icon-disabled"
             }
-            size={12}
+            size={10}
           />
         </button>
         <button
@@ -127,11 +127,11 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
         >
           <TwiceChevronRightIcon
             className={
-              isFirstPageAllowed
+              isLastPageAllowed
                 ? "pagination-icon"
                 : "pagination-icon-disabled"
             }
-            size={14}
+            size={12}
           />
         </button>
       </div>

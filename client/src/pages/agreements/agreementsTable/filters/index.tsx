@@ -100,6 +100,7 @@ const TableFilters: React.FC<TableFilterProps> = ({
             }}
             inputReadOnly
             onOpenChange={(open) => setOnDatePickerDropdownVisible(open)}
+            allowClear={false}
             suffixIcon={
               onDatePickerDropdownVisible ? (
                 <ChevronUpIcon

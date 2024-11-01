@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  frontend:
+    container_name: nginx-frontend-app
+    image: navigator_frontend
+    restart: always
+    build:
+      context: ./client/
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 80:80
+      - 443:443
+
+  backend:
+    container_name: node-app
+    image: navigator_backend
+    restart: always
+    build:
+      context: ./server/
+      dockerfile: Dockerfile
+    env_file:
+      - .env

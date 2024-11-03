@@ -13,8 +13,8 @@ const getAgreements = async () => {
       },
     });
 
-    if (response.data && response.data.agreementDocuments) {
-      return response.data.agreementDocuments;
+    if (response.data) {
+      return response.data.data;
     } else {
       throw new Error("No agreements found");
     }

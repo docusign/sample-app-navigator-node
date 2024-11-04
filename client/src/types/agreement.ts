@@ -49,14 +49,38 @@ export interface Data {
 
 export interface AgreementDocument {
     id: string;
-    version: string;
-    createdAt: string;
-    modifiedAt: string;
-    documentStorageId: string;
-    externalSource: ExternalSource;
-    etag: number;
-    data: Data;
-}
+    file_name: string;
+    type: string;
+    category: string;
+    status: string;
+    parties?: {
+      id: string;
+      name_in_agreement: string;
+    }[];
+    provisions?: {
+      effective_date: string;
+      expiration_date: string;
+      execution_date: string;
+      payment_terms_due_date: string;
+    };
+    related_agreement_documents?: Record<string, unknown>;
+    source_name: string;
+    source_id: string;
+    metadata: {
+      created_at: string;
+      modified_at: string;
+      modified_by: string;
+    };
+    additional_custom_esign_data?: {
+      [key: string]: {
+        label: string;
+        value: string;
+        $class: string;
+        valueString: string;
+      };
+    };
+  }
+  
 
 export interface MockedData {
     ctoken: string | null;

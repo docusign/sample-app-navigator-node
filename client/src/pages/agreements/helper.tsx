@@ -8,19 +8,19 @@ const documentTypeMapping: Record<DocumentTypeModel, string> = {
   [DocumentTypeModel.ORDER_FORM]: "Order Form",
   [DocumentTypeModel.OTHER]: "Other",
 };
-export const mapDocumentType = (agreementType: string | null | undefined) => {
-  if (!agreementType) {
-    return "-";
-  }
 
-  const mappedType = documentTypeMapping[agreementType as DocumentTypeModel];
-  return mappedType ?? agreementType;
+export const mapDocumentType = (type: string | null | undefined) => {
+  if (!type) return "-";
+  const documentTypeMapping: Record<string, string> = {
+    "Offer Letter": "Offer Letter",
+    "Order Form": "Order Form",
+    "Miscellaneous agreement": "Miscellaneous",
+  };
+  return documentTypeMapping[type] || type;
 };
 
-export const getUniqueDocumentTypes = (
-  agreements: AgreementDocument[]
-): string[] => {
-  const types = agreements.map((a) => mapDocumentType(a.data.agreementType));
+export const getUniqueDocumentTypes = (agreements: AgreementDocument[]): string[] => {
+  const types = agreements.map((a) => mapDocumentType(a.type));
   return Array.from(new Set(types));
 };
 
@@ -30,26 +30,26 @@ export const getColumns = (
 ) => [
   {
     title: t(translationKeys.NAME),
-    dataIndex: "name",
-    key: "name",
-    render: (_: any, record: AgreementDocument) => record.data.name,
+    dataIndex: "file_name",
+    key: "file_name",
+    render: (_: any, record: AgreementDocument) => record.file_name,
   },
   {
     title: t(translationKeys.PARTIES),
     dataIndex: "parties",
     key: "parties",
     render: (_: any, record: AgreementDocument) =>
-      record.data.parties?.map((party: any) => party.name).join(", ") ?? "-",
+      record.parties?.map((party) => party.name_in_agreement).join(", ") ?? "-",
   },
   {
     title: t(translationKeys.DOCUMENT_TYPE),
-    dataIndex: "agreementType",
-    key: "agreementType",
+    dataIndex: "type",
+    key: "type",
     render: (_: any, record: AgreementDocument) => {
       return (
         <div className="table-doc-type-container">
           <span className="table-doc-type">
-            {mapDocumentType(record.data.agreementType)}
+            {mapDocumentType(record.type)}
           </span>
         </div>
       );
@@ -57,11 +57,11 @@ export const getColumns = (
   },
   {
     title: t(translationKeys.EXPIRATION_DATE),
-    dataIndex: "expirationDate",
-    key: "expirationDate",
+    dataIndex: "expiration_date",
+    key: "expiration_date",
     render: (_: any, record: AgreementDocument) =>
-      record.data.expirationDate
-        ? format(new Date(record.data.expirationDate), "yyyy/MM/dd")
+      record.provisions?.expiration_date
+        ? format(new Date(record.provisions.expiration_date), "yyyy/MM/dd")
         : "-",
   },
   {
@@ -79,17 +79,13 @@ export const getColumns = (
 
 export const getNestedValue = (obj: AgreementDocument, path: string) => {
   switch (path) {
-    case "name":
-      return obj.data.name;
-    case "parties":
-      return (
-        obj.data.parties?.map((party: any) => party.name).join(", ") ?? "-"
-      );
-    case "agreementType":
-      return mapDocumentType(obj.data.agreementType);
-    case "expirationDate":
-      return obj.data.expirationDate
-        ? new Date(obj.data.expirationDate)
+    case "file_name":
+      return obj.file_name;
+    case "type":
+      return obj.type;
+    case "expiration_date":
+      return obj.provisions?.expiration_date
+        ? new Date(obj.provisions.expiration_date)
         : new Date();
     default:
       return "";

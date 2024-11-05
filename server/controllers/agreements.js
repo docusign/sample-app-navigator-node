@@ -2,7 +2,7 @@ const docusignService = require('../services/docusignService');
 
 const getAgreementsController = async (req, res) => {
   try {
-    const agreements = await docusignService.getAgreements();
+    const agreements = await docusignService.getAgreements(req);
     res.status(200).json({ success: true, data: agreements });
   } catch (error) {
     console.error('Error fetching agreements:', error);
@@ -13,7 +13,7 @@ const getAgreementsController = async (req, res) => {
 const getAgreementByIdController = async (req, res) => {
   try {
     const agreementId = req.params.id;
-    const agreement = await docusignService.getAgreementById(agreementId);
+    const agreement = await docusignService.getAgreementById(req,agreementId);
     res.status(200).json({ success: true, data: agreement });
   } catch (error) {
     console.error(`Error fetching agreement with ID ${req.params.id}:`, error);

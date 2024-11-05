@@ -1,4 +1,6 @@
-const docusign = require('docusign-esign');
+const docusign = require('docusign-esign-node-client');
+const fs = require('fs');
+const path = require('path');
 const config = require('../config/config');
 
 class DsClient {
@@ -9,15 +11,22 @@ class DsClient {
   }
 
   getAuthorizationUrl() {
-    const url = this.apiClient.getAuthorizationUri(
-      config.docusign.clientId,
-      config.docusign.redirectUri,
-      'code',
-      config.scopes,
-      'random_state_string'
-    );
-    return url;
+    try {
+      const url = this.apiClient.getAuthorizationUri(
+        config.docusign.clientId,
+        config.scopes,
+        config.docusign.redirectUri,
+        config.responseType,
+        config.state
+      );
+  
+      return url;
+    } catch (error) {
+      console.error('Failed to generate authorization URL:', error.message || error);
+      throw new Error('Authorization URL generation failed. Please check the configuration and try again.');
+    }
   }
+  
 
   async exchangeCodeForToken(code) {
     try {
@@ -33,10 +42,32 @@ class DsClient {
     }
   }
 
+  async updateToken() {
+    try {
+      const rsaKey = fs.readFileSync(path.join(__dirname, '../config/private.key'));
+      const jwtResponse = await this.apiClient.requestJWTUserToken(
+        config.docusign.clientId,
+        config.docusign.impersonatedUserId,
+        config.scopes,
+        rsaKey,
+        3600
+      );
+
+      const accessToken = jwtResponse.body.access_token;
+      const expiresIn = jwtResponse.body.expires_in;
+
+      return { accessToken, expiresIn };
+    } catch (error) {
+      console.error('JWT updateToken error:', error.response ? error.response.data : error.message);
+      throw new Error(`JWT update failed: ${error.message}`);
+    }
+  }
+
   getAuthorizedClient(accessToken) {
     this.apiClient.addDefaultHeader('Authorization', `Bearer ${accessToken}`);
     return this.apiClient;
   }
 }
+
 
 module.exports = new DsClient();

@@ -1,5 +1,4 @@
 require('dotenv').config();
-const path = require('path');
 
 
 
@@ -24,5 +23,7 @@ module.exports = {
   client : {
     port: process.env.CLIENT_URL
   },
-  scopes: ['adm_store_unified_repo_read']
+  scopes: ['adm_store_unified_repo_read'],
+  responseType:'code',
+  state: 'random_state_string'
 };

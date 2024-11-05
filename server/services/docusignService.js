@@ -1,15 +1,30 @@
 const axios = require("axios");
 const config = require("../config/config");
 
-const getAgreements = async () => {
+const getTokens = (req)=>{
+  const firstSessionString = Object.entries(req.sessionStore.sessions)[0][1];
+  const firstSessionData = JSON.parse(firstSessionString);
+  
+  const accessToken = firstSessionData.accessToken;
+  const refreshToken = firstSessionData.refreshToken;
+  return {
+    accessToken,
+    refreshToken
+  }
+}
+
+const getAgreements = async (req) => {
+  
+const {accessToken,refreshToken} = getTokens(req);
+
   try {
-    if (!config.docusignTokens || !config.docusignTokens.accessToken) {
+    if (!accessToken) {
       throw new Error("Access token is missing. Please log in again.");
     }
 
     const response = await axios.get(`${config.docusign.agreementsUrl}`, {
       headers: {
-        Authorization: `Bearer ${config.docusignTokens.accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
 
@@ -24,9 +39,9 @@ const getAgreements = async () => {
   }
 };
 
-const getAgreementById = async (agreementId) => {
+const getAgreementById = async (req, agreementId) => {
   try {
-    if (!config.docusignTokens || !config.docusignTokens.accessToken) {
+    if (!req.session || !req.session.accessToken) {
       throw new Error("Access token is missing. Please log in again.");
     }
 
@@ -34,7 +49,7 @@ const getAgreementById = async (agreementId) => {
       `${config.docusign.agreementsUrl}${agreementId}`,
       {
         headers: {
-          Authorization: `Bearer ${config.docusignTokens.accessToken}`,
+          Authorization: `Bearer ${req.session.accessToken}`,
         },
       }
     );

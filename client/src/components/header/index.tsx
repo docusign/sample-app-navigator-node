@@ -2,11 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logo.svg";
 import menuClosed from "../../assets/img/menu-closed.svg";
 import menu from "../../assets/img/menu-opened.svg";
-import { LINKS, ROUTE } from "../../constants/routes";
+import { API_LINKS, LINKS, ROUTE } from "../../constants/routes";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import NavLink from "./navLink/navLink";
+import axios from "axios";
 
 import "./styles.css";
 
@@ -35,10 +36,18 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
     };
   }, [isDropdownOpen]);
 
-  const handleLogoutAction = useCallback(() => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("expiresIn");
+  const handleLogoutAction = useCallback(async () => {
+    try {
+      const logoutUrl = API_LINKS.LOGOUT;
+      await axios.post(logoutUrl, {}, { withCredentials: true });
+
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("expiresIn");
+
+    } catch (error) {
+      console.log("Logout failed", error);
+    }
 
     navigate(ROUTE.ROOT);
   }, [navigate]);

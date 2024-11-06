@@ -1,6 +1,5 @@
-const DsClient = require('../config/dsClient');
-const config = require('../config/config');
-
+const DsClient = require("../config/dsClient");
+const config = require("../config/config");
 
 const startAuth = (req, res) => {
   const authorizationUrl = DsClient.getAuthorizationUrl();
@@ -20,7 +19,7 @@ const callBackController = async (req, res) => {
     req.session.accessToken = authData.accessToken;
     req.session.refreshToken = authData.refreshToken;
     req.session.expiresIn = authData.expiresIn;
-    req.session.authType = 'Code Grant';
+    req.session.authType = "Code Grant";
 
     req.session.save((err) => {
       if (err) {
@@ -32,11 +31,10 @@ const callBackController = async (req, res) => {
       );
     });
   } catch (error) {
-    console.error('Callback error:', error);
+    console.error("Callback error:", error);
     res.status(500).json({ message: "Login failed", error: error.message });
   }
 };
-
 
 const jwtAuth = async (req, res) => {
   try {
@@ -44,17 +42,22 @@ const jwtAuth = async (req, res) => {
 
     req.session.accessToken = authData.accessToken;
     req.session.expiresIn = authData.expiresIn;
-    req.session.authType = 'JWT';
+    req.session.authType = "JWT";
 
-    res.json({ message: 'Logged in with JWT' });
+    res.json({
+      message: "Logged in with JWT",
+      accessToken: authData.accessToken,
+      expiresIn: authData.expiresIn,
+    });
   } catch (error) {
-    console.error('JWT authorization error:', error);
-    res.status(500).json({ message: 'JWT authorization failed' });
+    console.error("JWT authorization error:", error);
+    res.status(500).json({ message: `JWT authorization failed: ${error}` });
   }
 };
 
 const getStatus = (req, res) => {
-  const isTokenValid = req.session.expiresIn && (Date.now() < req.session.expiresIn * 1000);
+  const isTokenValid =
+    req.session.expiresIn && Date.now() < req.session.expiresIn * 1000;
   res.json({
     logged: isTokenValid,
     authType: req.session.authType || null,
@@ -62,13 +65,23 @@ const getStatus = (req, res) => {
 };
 
 const logOut = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Logout error:', err);
-      return res.status(500).json({ message: 'Logout failed' });
-    }
-    res.json({ message: 'Logged out' });
-  });
+  try {
+    req.session.accessToken = null;
+    req.session.refreshToken = null;
+    req.session.expiresIn = null;
+    req.session.authType = null;
+
+    req.session.save((err) => {
+      if (err) {
+        console.error("Logout save error:", err);
+        return res.status(500).json({ message: "Logout save failed" });
+      }
+      res.json({ message: "Logged out successfully, session cleared" });
+    });
+  } catch (error) {
+    console.error("Unexpected error during logout");
+    res.status(500).json({ message: "Unexpected error during logout" });
+  }
 };
 
 module.exports = {

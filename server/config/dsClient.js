@@ -47,7 +47,7 @@ class DsClient {
       const rsaKey = fs.readFileSync(path.join(__dirname, '../config/private.key'));
       const jwtResponse = await this.apiClient.requestJWTUserToken(
         config.docusign.clientId,
-        config.docusign.impersonatedUserId,
+        null, //config.docusign.impersonatedUserId,
         config.scopes,
         rsaKey,
         3600

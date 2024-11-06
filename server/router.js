@@ -16,7 +16,7 @@ router.get('/ds/authorize',jwtAuth);
 router.get('/get_status', getStatus);
 router.post('/logout',logOut);
 
-router.get('/api/agreements', authMiddleware, getAgreementsController);
-router.get('/api/agreements/:id', authMiddleware, getAgreementByIdController);
+router.get('/api/agreements', getAgreementsController);
+router.get('/api/agreements/:id', getAgreementByIdController);
 
 module.exports = router;

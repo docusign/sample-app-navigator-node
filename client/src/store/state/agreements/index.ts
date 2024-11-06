@@ -8,7 +8,7 @@ export const fetchAgreements = createAsyncThunk(
   'agreements/fetchAgreements',
   async (_, { rejectWithValue }) => {
     const accessToken = localStorage.getItem("accessToken");
-
+    
     if (!accessToken) {
       return rejectWithValue("No access token found. Please log in again.");
     }

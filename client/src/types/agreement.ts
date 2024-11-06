@@ -58,10 +58,11 @@ export interface AgreementDocument {
       name_in_agreement: string;
     }[];
     provisions?: {
-      effective_date: string;
-      expiration_date: string;
-      execution_date: string;
-      payment_terms_due_date: string;
+      effective_date?: string;
+      expiration_date?: string;
+      execution_date?: string;
+      payment_terms_due_date?: string;
+      assignment_type?: string;
     };
     related_agreement_documents?: Record<string, unknown>;
     source_name: string;

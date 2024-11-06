@@ -24,6 +24,14 @@ const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
     ? format(new Date(agreement.provisions.expiration_date), "yyyy/MM/dd")
     : "-";
 
+  const renewalType = agreement?.provisions?.assignment_type ?? "-";
+  const renewalNoticePeriod = agreement?.provisions?.execution_date ?? "-";
+  const renewalNoticeDate = agreement?.provisions?.execution_date ?? '-';
+  const renewalTerm = agreement?.provisions?.execution_date ?? "1 year";
+  const renewalOwner = "Andy Automator";
+  const additionalInfo =
+    "After the user completes signing the envelope in the embedded signing session, the envelope is redirected to the second signer based on the conditions described in Step 2.";
+
   return (
     <div className="agreement-details-card-container">
       <div className="agreement-details-card-main-section">
@@ -52,6 +60,45 @@ const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
               {t(translationKeys.AGREEMENT_DETAILS_AGREEMENT_EXPIRATION_DATE)}
             </div>
             <div className="agreement-details-value">{expirationDate}</div>
+          </div>
+        </div>
+        <h2>{t(translationKeys.AGREEMENT_DETAILS_RENEWAL)}</h2>
+        <div className="agreement-details-card-type-section">
+          <div className="agreement-details-item">
+            <div className="agreement-details-label">
+              {t(translationKeys.AGREEMENT_DETAILS_RENEWAL_TYPE)}
+            </div>
+            <div className="agreement-details-value">{renewalType}</div>
+          </div>
+          <div className="agreement-details-item">
+            <div className="agreement-details-label">
+              {t(translationKeys.AGREEMENT_DETAILS_RENEWAL_NOTICE_PERIOD)}
+            </div>
+            <div className="agreement-details-value">{renewalNoticePeriod}</div>
+          </div>
+          <div className="agreement-details-item">
+            <div className="agreement-details-label">
+              {t(translationKeys.AGREEMENT_DETAILS_RENEWAL_NOTICE_DATE)}
+            </div>
+            <div className="agreement-details-value">{renewalNoticeDate}</div>
+          </div>
+          <div className="agreement-details-item">
+            <div className="agreement-details-label">
+              {t(translationKeys.AGREEMENT_DETAILS_RENEWAL_TERM)}
+            </div>
+            <div className="agreement-details-value">{renewalTerm}</div>
+          </div>
+          <div className="agreement-details-item">
+            <div className="agreement-details-label">
+              {t(translationKeys.AGREEMENT_DETAILS_RENEWAL_OWNER)}
+            </div>
+            <div className="agreement-details-value">{renewalOwner}</div>
+          </div>
+          <div className="agreement-details-item">
+            <div className="agreement-details-label">
+              {t(translationKeys.AGREEMENT_DETAILS_RENEWAL_ADDITIONAL_INFO)}
+            </div>
+            <div className="agreement-details-value">{additionalInfo}</div>
           </div>
         </div>
       </div>

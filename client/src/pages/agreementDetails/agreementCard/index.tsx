@@ -13,27 +13,22 @@ type AgreementCardProps = {
 const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
   const { t } = useTranslation();
 
-  const agreementType = mapDocumentType(agreement.data?.agreementType);
-  const party = agreement.data?.parties
-    ? agreement.data.parties?.map((party: any) => party.name).join(", ") ?? "-"
+  const agreementType = mapDocumentType(agreement.type);
+  const parties = agreement.parties
+    ? agreement.parties.map((party) => party.name_in_agreement).join(", ")
     : "-";
-  const contactValue = agreement.data?.envelope?.recipients
-    ? agreement.data?.envelope?.recipients
-        ?.map((r: any) => r?.email)
-        .join(", ") ?? "-" // TODO: What need to set here?
+  const effectiveDate = agreement.provisions?.effective_date
+    ? format(new Date(agreement.provisions.effective_date), "yyyy/MM/dd")
     : "-";
-  const effectiveDate = agreement.data?.effectiveDate
-    ? format(new Date(agreement.data.effectiveDate), "yyyy/MM/dd")
-    : "-";
-  const expirationDate = agreement.data?.expirationDate
-    ? format(new Date(agreement.data.expirationDate), "yyyy/MM/dd")
+  const expirationDate = agreement.provisions?.expiration_date
+    ? format(new Date(agreement.provisions.expiration_date), "yyyy/MM/dd")
     : "-";
 
-  const renewalType = agreement.data?.renewal ?? "-"; // TODO: What need to set here?
-  const renewalNoticePeriod = agreement.data?.terminationNoticePeriod ?? "-"; // TODO: What need to set here?
-  const renewalNoticeDate = "2024/10/09"; // TODO: What need to set here?
-  const renewalTerm = agreement.data?.paymentTerms ?? "1 year"; // TODO: What need to set here?
-  const renewalOwner = "Andy Automator"; // TODO: What need to set here?
+  const renewalType = agreement?.provisions?.assignment_type ?? "-";
+  const renewalNoticePeriod = agreement?.provisions?.execution_date ?? "-";
+  const renewalNoticeDate = agreement?.provisions?.execution_date ?? '-';
+  const renewalTerm = agreement?.provisions?.execution_date ?? "1 year";
+  const renewalOwner = "Andy Automator";
   const additionalInfo =
     "After the user completes signing the envelope in the embedded signing session, the envelope is redirected to the second signer based on the conditions described in Step 2.";
 
@@ -52,13 +47,7 @@ const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
             <div className="agreement-details-label">
               {t(translationKeys.AGREEMENT_DETAILS_AGREEMENT_PARTY)}
             </div>
-            <div className="agreement-details-value">{party}</div>
-          </div>
-          <div className="agreement-details-item">
-            <div className="agreement-details-label">
-              {t(translationKeys.AGREEMENT_DETAILS_AGREEMENT_CONTRACT_VALUE)}
-            </div>
-            <div className="agreement-details-value">{contactValue}</div>
+            <div className="agreement-details-value">{parties}</div>
           </div>
           <div className="agreement-details-item">
             <div className="agreement-details-label">
@@ -73,7 +62,6 @@ const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
             <div className="agreement-details-value">{expirationDate}</div>
           </div>
         </div>
-
         <h2>{t(translationKeys.AGREEMENT_DETAILS_RENEWAL)}</h2>
         <div className="agreement-details-card-type-section">
           <div className="agreement-details-item">

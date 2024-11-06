@@ -70,6 +70,8 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
       searchText: value,
     }));
   };
+
+
   const handleFilterDate = (date?: any, dateString?: string | string[]) => {
     const selectedDate = Array.isArray(dateString) ? dateString[0] : dateString;
 
@@ -90,38 +92,35 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
         value !== DEFAULT_TYPE ? value : (undefined as string | undefined),
     }));
   };
-  useEffect(() => {
-    let filtered = data;
-    if (filters.searchText) {
-      filtered = filtered.filter((item) =>
-        item.data.name.toLowerCase().includes(filters.searchText.toLowerCase())
+useEffect(() => {
+  let filtered = data;
+  if (filters.searchText) {
+    filtered = filtered.filter((item) =>
+      item.file_name.toLowerCase().includes(filters.searchText.toLowerCase())
+    );
+  }
+
+  if (filters.documentType) {
+    filtered = filtered.filter(
+      (item) => mapDocumentType(item.type) === filters.documentType
+    );
+  }
+
+  if (filters.expirationDate.date) {
+    filtered = filtered.filter((item) => {
+      const itemExpirationDate = item.provisions?.expiration_date;
+      return (
+        itemExpirationDate &&
+        moment(itemExpirationDate).isSame(
+          moment(filters.expirationDate.date),
+          "day"
+        )
       );
-    }
+    });
+  }
 
-    if (filters.documentType) {
-      filtered = filtered.filter(
-        (item) =>
-          mapDocumentType(item.data.agreementType) === filters.documentType
-      );
-    }
-
-    if (filters.expirationDate.date) {
-      filtered = filtered.filter((item) => {
-        let itemExpirationDate = item.data.expirationDate;
-
-        if (itemExpirationDate) {
-          return moment(itemExpirationDate).isSame(
-            moment(filters.expirationDate.date),
-            "day"
-          );
-        }
-
-        return false;
-      });
-    }
-
-    setFilteredData(filtered);
-  }, [filters, data]);
+  setFilteredData(filtered);
+}, [filters, data]);
 
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: "",
@@ -135,18 +134,12 @@ const AgreementsTable: React.FC<AgreementsTableProps> = ({ data }) => {
     setSortConfig({ key, direction });
   };
   const sortedData = [...filteredData].sort((a, b) => {
-    let sortKey = sortConfig.key;
-    if (!sortKey) sortKey = "name";
-
+    const sortKey = sortConfig.key || "file_name";
     const aValue = getNestedValue(a, sortKey);
     const bValue = getNestedValue(b, sortKey);
-
-    if (aValue < bValue) {
-      return sortConfig.direction === "ASC" ? -1 : 1;
-    }
-    if (aValue > bValue) {
-      return sortConfig.direction === "ASC" ? 1 : -1;
-    }
+  
+    if (aValue < bValue) return sortConfig.direction === "ASC" ? -1 : 1;
+    if (aValue > bValue) return sortConfig.direction === "ASC" ? 1 : -1;
     return 0;
   });
   const renderSortIcon = (key: string) => {

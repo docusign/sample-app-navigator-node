@@ -2,9 +2,12 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../../../constants";
 import Loader from "../../../../components/loader/loader";
+import { useAppDispatch } from "../../../../store";
+import { setIsAuthenticated } from "../../../../store/state/auth";
 
 const AuthCallback = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -17,6 +20,7 @@ const AuthCallback = () => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken as any);
       localStorage.setItem("expiresIn", expiresIn as any);
+      dispatch(setIsAuthenticated() as any);
       navigate(ROUTE.AGREEMENTS);
     } else {
       const storedAccessToken = localStorage.getItem("accessToken");
@@ -25,7 +29,7 @@ const AuthCallback = () => {
         navigate(ROUTE.ROOT);
       }
     }
-  }, [navigate]);
+  }, [navigate, dispatch]);
 
   return <Loader />;
 };

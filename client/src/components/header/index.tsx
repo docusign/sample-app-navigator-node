@@ -7,7 +7,10 @@ import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import NavLink from "./navLink/navLink";
-
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../store";
+import { logoutAction } from "../../store/state/auth";
+import { getIsAuthenticatedSelector } from "../../store/state/auth/selectors";
 import "./styles.css";
 
 interface HeaderProps {
@@ -17,7 +20,10 @@ interface HeaderProps {
 
 const Header = ({ showLogoutBtn, className }: HeaderProps) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const isAuthenticated = useSelector(getIsAuthenticatedSelector);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -36,12 +42,15 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
   }, [isDropdownOpen]);
 
   const handleLogoutAction = useCallback(() => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("expiresIn");
-
+    dispatch(logoutAction() as any);
     navigate(ROUTE.ROOT);
-  }, [navigate]);
+  }, [dispatch, navigate]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate(ROUTE.ROOT);
+    }
+  }, [isAuthenticated, navigate]);
 
   const renderNavLinksContentButton = useMemo(() => {
     const boxClass = `header-end-box${isDropdownOpen ? "-dropdown" : ""}`;
@@ -74,7 +83,7 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
   return (
     <header className={`header ${className}`} role="banner">
       <nav className={"navBar"}>
-        <Link className={"logo"} to={ROUTE.ROOT}>
+        <Link className={"logo"} to={ROUTE.AGREEMENTS}>
           <div className="logo-container">
             <img src={logo} alt="logo" />
             <p>{t(translationKeys.LOGO_TITLE)}</p>

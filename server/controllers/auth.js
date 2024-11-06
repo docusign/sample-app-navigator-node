@@ -1,63 +1,93 @@
-const axios = require("axios");
+const DsClient = require("../config/dsClient");
 const config = require("../config/config");
+
+const startAuth = (req, res) => {
+  const authorizationUrl = DsClient.getAuthorizationUrl();
+
+  res.redirect(authorizationUrl);
+};
 
 const callBackController = async (req, res) => {
   const code = req.query.code;
-  const state = req.query.state;
-
   if (!code) {
     return res.status(400).send("Authorization code not found in the request.");
   }
 
   try {
-    const credentials = Buffer.from(
-      `${config.docusign.clientId}:${config.docusign.clientSecret}`
-    ).toString("base64");
-    const requestData = new URLSearchParams({
-      grant_type: "authorization_code",
-      code,
-      redirect_uri: config.docusign.redirectUri,
-    }).toString();
+    const authData = await DsClient.exchangeCodeForToken(code);
 
-    const tokenResponse = await axios.post(
-      `${config.docusign.baseURL}/oauth/token`,
-      requestData,
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `Basic ${credentials}`,
-        },
+    req.session.accessToken = authData.accessToken;
+    req.session.refreshToken = authData.refreshToken;
+    req.session.expiresIn = authData.expiresIn;
+    req.session.authType = "Code Grant";
+
+    req.session.save((err) => {
+      if (err) {
+        console.error("Error saving session:", err);
+        return res.status(500).json({ message: "Session save failed" });
       }
-    );
-
-    const { access_token, refresh_token, expires_in } = tokenResponse.data;
-
-    if (!access_token) {
-      return res
-        .status(500)
-        .json({ message: "Access token not received from DocuSign." });
-    }
-
-    config.docusignTokens = {
-      accessToken: access_token,
-      refreshToken: refresh_token,
-      expiresIn: expires_in,
-    };
-
-    res.redirect(
-      `${config.client.port}/auth-callback?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`
-    );
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Login failed",
-      error: error.message,
-      ...(error.response && {
-        statusCode: error.response.status,
-        errorData: error.response.data,
-      }),
+      res.redirect(
+        `${config.client.port}/auth-callback?access_token=${authData.accessToken}&refresh_token=${authData.refreshToken}&expires_in=${authData.expiresIn}`
+      );
     });
+  } catch (error) {
+    console.error("Callback error:", error);
+    res.status(500).json({ message: "Login failed", error: error.message });
   }
 };
 
-module.exports = { callBackController };
+const jwtAuth = async (req, res) => {
+  try {
+    const authData = await DsClient.updateToken();
+
+    req.session.accessToken = authData.accessToken;
+    req.session.expiresIn = authData.expiresIn;
+    req.session.authType = "JWT";
+
+    res.json({
+      message: "Logged in with JWT",
+      accessToken: authData.accessToken,
+      expiresIn: authData.expiresIn,
+    });
+  } catch (error) {
+    console.error("JWT authorization error:", error);
+    res.status(500).json({ message: `JWT authorization failed: ${error}` });
+  }
+};
+
+const getStatus = (req, res) => {
+  const isTokenValid =
+    req.session.expiresIn && Date.now() < req.session.expiresIn * 1000;
+  res.json({
+    logged: isTokenValid,
+    authType: req.session.authType || null,
+  });
+};
+
+const logOut = (req, res) => {
+  try {
+    req.session.accessToken = null;
+    req.session.refreshToken = null;
+    req.session.expiresIn = null;
+    req.session.authType = null;
+
+    req.session.save((err) => {
+      if (err) {
+        console.error("Logout save error:", err);
+        return res.status(500).json({ message: "Logout save failed" });
+      }
+      res.json({ message: "Logged out successfully, session cleared" });
+    });
+  } catch (error) {
+    console.error("Unexpected error during logout");
+    res.status(500).json({ message: "Unexpected error during logout" });
+  }
+};
+
+module.exports = {
+  startAuth,
+  callBackController,
+  jwtAuth,
+  getStatus,
+  logOut,
+};

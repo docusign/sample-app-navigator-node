@@ -8,7 +8,7 @@ export const fetchAgreements = createAsyncThunk(
   'agreements/fetchAgreements',
   async (_, { rejectWithValue }) => {
     const accessToken = localStorage.getItem("accessToken");
-
+    
     if (!accessToken) {
       return rejectWithValue("No access token found. Please log in again.");
     }
@@ -41,7 +41,7 @@ export const fetchAgreementById = createAsyncThunk(
           Authorization: `Bearer ${accessToken}`,
         },
       }) as any;
-      console.log(response.data)
+
       return response.data.data as AgreementDocument;
     } catch (error: any) {
       return rejectWithValue("Failed to fetch agreements. Please try again later.");
@@ -109,6 +109,6 @@ const agreementsSlice = createSlice({
   },
 });
 
-export const { clearError } = agreementsSlice.actions;
+export const { clearError, clear } = agreementsSlice.actions;
 
 export default agreementsSlice.reducer;

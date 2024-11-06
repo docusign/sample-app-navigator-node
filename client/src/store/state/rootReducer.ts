@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import agreementsReducer from './agreements';
-import userReducer from './user';
+import authReducer from './auth';
 
 const rootReducer = combineReducers({
     agreements: agreementsReducer,
-    user: userReducer,
+    auth: authReducer,
 });
 
 export default rootReducer;

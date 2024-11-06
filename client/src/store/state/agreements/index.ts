@@ -109,6 +109,6 @@ const agreementsSlice = createSlice({
   },
 });
 
-export const { clearError } = agreementsSlice.actions;
+export const { clearError, clear } = agreementsSlice.actions;
 
 export default agreementsSlice.reducer;

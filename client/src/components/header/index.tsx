@@ -2,13 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logo.svg";
 import menuClosed from "../../assets/img/menu-closed.svg";
 import menu from "../../assets/img/menu-opened.svg";
-import { API_LINKS, LINKS, ROUTE } from "../../constants/routes";
+import { LINKS, ROUTE } from "../../constants/routes";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import NavLink from "./navLink/navLink";
-import axios from "axios";
-
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../store";
+import { logoutAction } from "../../store/state/auth";
+import { getIsAuthenticatedSelector } from "../../store/state/auth/selectors";
 import "./styles.css";
 
 interface HeaderProps {
@@ -18,7 +20,10 @@ interface HeaderProps {
 
 const Header = ({ showLogoutBtn, className }: HeaderProps) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const isAuthenticated = useSelector(getIsAuthenticatedSelector);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -36,21 +41,16 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
     };
   }, [isDropdownOpen]);
 
-  const handleLogoutAction = useCallback(async () => {
-    try {
-      const logoutUrl = API_LINKS.LOGOUT;
-      await axios.post(logoutUrl, {}, { withCredentials: true });
-
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("expiresIn");
-
-    } catch (error) {
-      console.log("Logout failed", error);
-    }
-
+  const handleLogoutAction = useCallback(() => {
+    dispatch(logoutAction() as any);
     navigate(ROUTE.ROOT);
-  }, [navigate]);
+  }, [dispatch, navigate]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate(ROUTE.ROOT);
+    }
+  }, [isAuthenticated, navigate]);
 
   const renderNavLinksContentButton = useMemo(() => {
     const boxClass = `header-end-box${isDropdownOpen ? "-dropdown" : ""}`;
@@ -83,7 +83,7 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
   return (
     <header className={`header ${className}`} role="banner">
       <nav className={"navBar"}>
-        <Link className={"logo"} to={ROUTE.ROOT}>
+        <Link className={"logo"} to={ROUTE.AGREEMENTS}>
           <div className="logo-container">
             <img src={logo} alt="logo" />
             <p>{t(translationKeys.LOGO_TITLE)}</p>

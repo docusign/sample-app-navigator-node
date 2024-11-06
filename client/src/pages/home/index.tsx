@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
@@ -7,50 +7,37 @@ import DocusignCard from "./components/docusignCard/docusignCard";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { API_LINKS, ROUTE } from "../../constants";
-import axios from "axios";
+import { useAppDispatch } from "../../store";
+import { useSelector } from "react-redux";
+import { loginWithJWTAction } from "../../store/state/auth";
+import {
+  getAccessTokenSelector,
+  getIsAuthenticatedSelector,
+} from "../../store/state/auth/selectors";
 import "./styles.css";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
+
+  const isAuthenticated = useSelector(getIsAuthenticatedSelector);
+  const accessToken = useSelector(getAccessTokenSelector);
 
   const handleAuthCallback = () => {
     window.location.href = API_LINKS.AUTHORIZE;
   };
 
-  async function loginWithJwt() {
-    try {
-      const response = await axios.get(
-        `${API_LINKS.AUTHORIZE_TEST_1}/ds/authorize`,
-        {
-          withCredentials: true, // Ensures cookies are sent with the request
-        }
-      );
+  const handleJwtAuthFlow = () => {
+    dispatch(loginWithJWTAction() as any);
+  };
 
-      const data = response.data as any;
-
-      if (data.accessToken) {
-        // Store tokens in localStorage
-        localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("expiresIn", data.expiresIn);
-
-        console.log("JWT login successful, tokens stored in localStorage.");
-        navigate(ROUTE.AGREEMENTS);
-      } else {
-        console.error("JWT login failed:", data.message);
-      }
-    } catch (error) {
-      console.error("Error logging in with JWT:", error);
+  useEffect(() => {
+    const hasAccessToken = !!accessToken;
+    if (isAuthenticated && hasAccessToken) {
+      navigate(ROUTE.AGREEMENTS);
     }
-  }
-
-  const handleTestAccount1AuthCallback = async () => {
-    loginWithJwt();
-  };
-
-  const handleTestAccount2AuthCallback = () => {
-    // window.location.href = API_LINKS.AUTHORIZE_TEST_2;
-  };
+  }, [isAuthenticated, accessToken, navigate]);
 
   return (
     <div className="home-page">
@@ -69,9 +56,7 @@ const Home: React.FC = () => {
           title={t(translationKeys.HOME_HEADER_CARD_TITLE)}
           description={t(translationKeys.HOME_HEADER_CARD_SUBTITLE)}
           btnTitle1={t(translationKeys.HOME_HEADER_CARD_BTN_TITLE1)}
-          btnTitle2={t(translationKeys.HOME_HEADER_CARD_BTN_TITLE2)}
-          onClickBtn1={handleTestAccount1AuthCallback}
-          onClickBtn2={handleTestAccount2AuthCallback}
+          onClickBtn1={handleJwtAuthFlow}
         />
       </div>
       <Footer />

@@ -7,7 +7,7 @@ const router = require("./router");
 
 const app = express();
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: config.client.port ?? 'http://localhost:3000',
   credentials: true, 
   methods: 'GET,POST,PUT,DELETE',
   allowedHeaders: 'Content-Type, Authorization',

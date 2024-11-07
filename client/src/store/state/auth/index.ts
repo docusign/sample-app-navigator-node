@@ -32,7 +32,7 @@ export const loginWithJWTAction = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(
-        `${API_LINKS.AUTHORIZE_TEST_1}/ds/authorize`,
+        `${API_LINKS.AUTHORIZE_TEST_1}`,
         {
           withCredentials: true,
         }

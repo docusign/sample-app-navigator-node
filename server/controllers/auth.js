@@ -26,9 +26,11 @@ const callBackController = async (req, res) => {
         console.error("Error saving session:", err);
         return res.status(500).json({ message: "Session save failed" });
       }
-      res.redirect(
-        `${config.client.port}/auth-callback?access_token=${authData.accessToken}&refresh_token=${authData.refreshToken}&expires_in=${authData.expiresIn}`
-      );
+
+      let url = `${config.client.port}/auth-callback?access_token=${authData.accessToken}&refresh_token=${authData.refreshToken}&expires_in=${authData.expiresIn}`;
+      url = url.replace(/\/api\/ds/g, "");
+
+      res.redirect(url);
     });
   } catch (error) {
     console.error("Callback error:", error);

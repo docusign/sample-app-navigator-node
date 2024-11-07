@@ -9,7 +9,7 @@ RUN npm install
 COPY . .
 
 # Run stage
-FROM node:20.14-alpine
+FROM --platform=linux/amd64 node:20.14-alpine
 
 COPY --from=base /usr/src/app /usr/src/app
 WORKDIR /usr/src/app

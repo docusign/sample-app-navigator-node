@@ -92,6 +92,8 @@
     font-size: 14px !important;
     line-height: 20px;
     color: #000000;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .table-doc-type {

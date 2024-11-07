@@ -2,7 +2,7 @@ version: "3.9"
 services:
   frontend:
     container_name: nginx-frontend-app
-    image: navigator_frontend
+    image: dssaregistry.azurecr.io/navigator/front:latest
     restart: always
     env_file:
       - .env
@@ -12,7 +12,7 @@ services:
 
   backend:
     container_name: node-app
-    image: navigator_backend
+    image: dssaregistry.azurecr.io/navigator/back:latest
     restart: always
     env_file:
       - .env

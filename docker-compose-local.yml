@@ -1,7 +1,6 @@
 version: "3.9"
 services:
   frontend:
-    container_name: nginx-frontend-app
     image: dssaregistry.azurecr.io/navigator/front:latest
     restart: always
     build:
@@ -14,7 +13,6 @@ services:
       - 443:443
 
   backend:
-    container_name: node-app
     image: dssaregistry.azurecr.io/navigator/back:latest
     restart: always
     build:

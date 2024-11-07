@@ -4,8 +4,6 @@ services:
     container_name: nginx-frontend-app
     image: dssaregistry.azurecr.io/navigator/front:latest
     restart: always
-    env_file:
-      - .env
     ports:
       - 80:80
       - 443:443
@@ -14,5 +12,3 @@ services:
     container_name: node-app
     image: dssaregistry.azurecr.io/navigator/back:latest
     restart: always
-    env_file:
-      - .env

@@ -10,6 +10,10 @@ class DsClient {
     this.apiClient.setOAuthBasePath(config.docusign.oauthBasePath);
   }
 
+  getUserInfo(token){
+    return this.apiClient.getUserInfo(token);
+  }
+
   getAuthorizationUrl() {
     try {
       const url = this.apiClient.getAuthorizationUri(

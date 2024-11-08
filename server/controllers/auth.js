@@ -19,8 +19,9 @@ const callBackController = async (req, res) => {
     req.session.accessToken = authData.accessToken;
     req.session.refreshToken = authData.refreshToken;
     req.session.expiresIn = authData.expiresIn;
-    req.session.authType = "Code Grant";
 
+    req.session.authType = "Code Grant";
+  
     req.session.save((err) => {
       if (err) {
         console.error("Error saving session:", err);

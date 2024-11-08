@@ -15,7 +15,7 @@ module.exports = {
     privateKeyPath: process.env.DS_PRIVATE_KEY_PATH,
     redirectUri: process.env.DS_REDIRECT_URI,
     tokenUrl:  process.env.TOKEN_URL,
-    agreementsUrl:`https://api-d.docusign.com/v1/accounts/${process.env.DS_ACCOUNT_ID}/agreements`,
+    agreementsUrl:`https://api-d.docusign.com/v1/accounts/`,
   },
   server: {
     sessionSecret: process.env.SESSION_SECRET || 'default-secret'

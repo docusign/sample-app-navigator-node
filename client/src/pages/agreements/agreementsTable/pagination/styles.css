@@ -1,0 +1,98 @@
+.pagination-container {
+  display: flex;
+  padding: 24px 8px 12px 8px;
+  gap: 12px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    color: #9e9d9f;
+  }
+}
+
+.page-selector-container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+
+  .pagination-page-select .ant-select-selector {
+    background-color: #ffffff;
+    border-radius: 8px;
+    flex: 1;
+    border: none;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    margin: 0px 0px 0px 0px;
+    gap: 7px;
+  }
+
+  .pagination-chevron-down {
+    padding: 0;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    color: #9e9d9f;
+    align-self: center;
+    margin: 0;
+  }
+}
+
+.page-clicker-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    color: #151515;
+    padding: 6px;
+  }
+
+  .current-page {
+    width: 26px;
+    height: 26px;
+    background-color: #d7d7d7;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .icon-button {
+    min-width: 50px;
+    min-height: 50px;
+  }
+
+  .icon-button p {
+    font-family: "Sora", bold !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: #151515;
+    margin: 0;
+    padding: 10px;
+  }
+}
+
+.pagination-icon {
+  color: #151515;
+  padding: 0px 0px 0px 0px;
+}
+.pagination-icon-disabled {
+  color: #9e9d9f;
+}

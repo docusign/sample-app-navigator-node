@@ -1,0 +1,92 @@
+.docusign-description-content {
+  background-color: #fafafa;
+  border: 3px solid #fbfbfb;
+  border-radius: 25px;
+  gap: 16px;
+}
+
+.docusign-description-wrap {
+  border: 1px solid var(--gray-light);
+  border-radius: 25px;
+  margin: 16px;
+  gap: 32px;
+  background-color: #fafafa;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+
+  h3 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  button {
+    padding: 0;
+  }
+
+  button:hover {
+    background: none !important;
+  }
+
+  button:focus,
+  button:focus-visible {
+    outline: none !important;
+  }
+}
+
+.docusign-description-content h3 {
+  margin: 0;
+}
+
+.docusign-description-content p {
+  margin: 10px 0;
+}
+
+.expand-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--black-main);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  margin-left: 10px;
+}
+
+.description-content {
+  h3 {
+    padding-top: 20px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: 0;
+  }
+
+  li {
+    margin-left: 20px;
+    padding-left: 0;
+  }
+
+  .description-link {
+    color: #5855ff;
+    font-weight: bold;
+  }
+
+  strong {
+    color: #5855ff;
+  }
+}
+
+[aria-expanded="true"] + .description-content {
+  max-height: 768px;
+}

@@ -1,0 +1,259 @@
+.filtering-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  max-width: 100%;
+
+  .search-input {
+    flex: 1;
+    height: 40px;
+    min-width: 300px;
+    padding: 8px 24px 8px 40px;
+    border-radius: 100px;
+    border: 1px solid #cecdd0;
+    color: #393242;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  .search-input::placeholder {
+    color: #9e9d9f;
+    opacity: 1;
+  }
+  .search-icon {
+    position: absolute;
+    left: 15px;
+    padding-top: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9e9d9f !important;
+    pointer-events: none;
+    cursor: pointer;
+  }
+  .search-icon-bold {
+    color: #151515 !important;
+  }
+  .search-input:focus,
+  .search-input:hover {
+    color: #000000 !important;
+    border-color: #151515;
+    background: transparent !important;
+    background-color: transparent !important;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  .bold-text {
+    color: #151515;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .search-input:focus,
+  .search-input:focus-visible {
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+}
+
+.filters-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  gap: 24px;
+  max-width: 100%;
+}
+
+.date-input-container {
+  display: flex;
+  flex: 1;
+  max-width: 100%;
+  justify-content: center;
+
+  .expiration-date-input {
+    flex: 1;
+    height: 40px;
+    min-width: 250px;
+    padding: 8px 12px 8px 12px;
+    border-radius: 100px;
+    border: 1px solid #cecdd0;
+    color: #393242;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+  }
+  .expiration-date-input:focus,
+  .expiration-date-input:hover {
+    color: #000000 !important;
+    border: 1px solid #151515;
+  }
+}
+
+.date-picker-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: space-around;
+
+  .date-picker-button {
+    background: none;
+    color: #5855ff;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 21px !important;
+    text-align: left !important;
+
+    padding: 8px 16px 8px 16px !important;
+    gap: 4px !important;
+    border-radius: 100px !important;
+  }
+}
+
+.doc-type-selector-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  max-width: 100%;
+  justify-content: center;
+
+  .doc-type-selector {
+    cursor: pointer;
+    flex: 1;
+    height: 40px;
+    min-width: 250px;
+    padding: 0px;
+    margin: 0;
+    border-radius: 100px;
+    color: #393242;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+
+    .ant-select-selector {
+      border: 1px solid #cecdd0;
+    }
+  }
+}
+
+.icon-cross-button {
+  position: absolute;
+  right: 0px;
+  background: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+.icon-cross-button:disabled {
+  cursor: not-allowed;
+}
+.cross-icon {
+  position: absolute;
+  right: 15px;
+  padding-top: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #151515;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1400px) {
+  .filtering-container {
+    gap: 16px;
+  }
+
+  .filters-wrapper {
+    gap: 16px;
+  }
+
+  .search-input {
+    min-width: 200px !important;
+  }
+
+  .expiration-date-input {
+    min-width: 200px !important;
+  }
+
+  .doc-type-selector {
+    min-width: 200px !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .search-input {
+    min-width: 180px !important;
+  }
+
+  .expiration-date-input {
+    min-width: 180px !important;
+  }
+
+  .doc-type-selector {
+    min-width: 180px !important;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .search-input {
+    min-width: 150px !important;
+  }
+
+  .expiration-date-input {
+    min-width: 150px !important;
+  }
+
+  .doc-type-selector {
+    min-width: 150px !important;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .search-input {
+    min-width: 250px !important;
+  }
+
+  .filtering-container {
+    display: flex;
+    flex-direction: column;
+
+    .filters-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: stretch;
+
+      .expiration-date-input,
+      .doc-type-selector {
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 705px) {
+  .filtering-container {
+    padding: 8px;
+    gap: 8px;
+  }
+}

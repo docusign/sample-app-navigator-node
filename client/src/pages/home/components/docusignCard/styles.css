@@ -1,0 +1,126 @@
+.docusign-container {
+  display: flex;
+  background-color: transparent;
+  padding: 5%;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+.docusign-card {
+  position: relative;
+  padding: 60px 150px 60px 150px;
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+
+  h2 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 30.72px;
+    letter-spacing: 1.5%;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+    color: #ffffff;
+  }
+}
+
+.docusign-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(
+    80.43deg,
+    rgba(175, 158, 249, 0.8) 60.14%,
+    rgba(246, 208, 252, 0.8) 95.93%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+.docusign-card .button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-top: 20px;
+  justify-content: space-around;
+}
+
+.button-container .button-component2 {
+  border-radius: 100px;
+  padding: 8px 20px 8px 20px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+  background: #ffffff;
+}
+.button-container .button-component2:hover {
+  color: #000000 !important;
+  background: linear-gradient(to right, #9986e8, #ffffff) !important;
+}
+
+.button-container .button-component3 {
+  border-radius: 100px;
+  padding: 8px 20px 8px 20px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+  background: #dcd9ea;
+}
+.button-container .button-component3:hover {
+  color: #000000 !important;
+  background: linear-gradient(to right, #9986e8, #dcd9ea) !important;
+}
+
+.button-container .button-component3:focus,
+.button-container .button-component2:focus,
+.button-container
+  .button-component2:focus-visible
+  .button-container
+  .button-component3:focus-visible {
+  outline: none;
+}
+
+@media (max-width: 1024px) {
+  .docusign-card {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .docusign-container {
+    margin-top: 5%;
+  }
+
+  .docusign-card {
+    h2 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      padding-top: 0px;
+    }
+  }
+}

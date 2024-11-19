@@ -1,0 +1,80 @@
+.agreement-details-card-container {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  border: 3px solid #fbfbfb;
+  border-radius: 25px;
+  gap: 12px;
+}
+
+.agreement-details-card-main-section {
+  padding: 0;
+  margin: 0;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+}
+
+.agreement-details-card-type-section {
+  border-radius: 10px;
+  padding: 12px;
+  padding-top: 0;
+}
+
+.agreement-details-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 12px 4px 12px;
+  gap: 24px;
+  border-radius: 10px;
+}
+.agreement-details-item:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.agreement-details-label {
+  width: 100%;
+  gap: 24px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #080014;
+}
+
+.agreement-details-value {
+  width: 100%;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #393242;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+}
+
+@media (max-width: 600px) {
+  .agreement-details-card-container {
+    padding: 8px;
+  }
+
+  .agreement-details-card-main-section{
+    padding-left: 8px;
+  }
+
+  .agreement-details-item {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 6px 4px 6px;
+  }
+
+  .agreement-details-label,
+  .agreement-details-value {
+    padding: 5px 0;
+  }
+}

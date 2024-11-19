@@ -1,0 +1,28 @@
+.back-button-container {
+  top: 84px;
+  left: 88px;
+  padding: 0 !important;
+  gap: 8px;
+}
+
+.back-button {
+  padding: 0 !important;
+  background: none !important;
+}
+.back-button-icon {
+  color: #5855ff;
+}
+.back-button:hover .back-button-icon,
+.back-button:hover .back-button-text {
+  color: #2420d2;
+}
+
+.back-button:focus,
+.back-button:focus-visible {
+  outline: none;
+}
+
+.back-button-text {
+  padding-left: 5px;
+  color: #5855ff;
+}

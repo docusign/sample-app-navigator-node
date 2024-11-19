@@ -1,0 +1,242 @@
+.content-container {
+  background-color: #ffffff;
+  border: 3px solid #fbfbfb;
+  border-radius: 25px;
+  gap: 12px;
+
+  table {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .table-th-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: start;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 10px !important;
+    line-height: 20px;
+    color: #565454;
+    gap: 2px;
+  }
+
+  table tr {
+    background-color: #ffffff;
+  }
+  table tr:nth-child(even) {
+    background-color: #f9f9f9f9;
+  }
+  tbody tr:hover {
+    background-color: #e0e0f2;
+  }
+
+  table th:nth-child(1) {
+    width: 22.5%;
+  }
+
+  table th:nth-child(2) {
+    width: 22.5%;
+  }
+
+  table th:nth-child(3) {
+    width: 22.5%;
+  }
+
+  table th:nth-child(4) {
+    width: 22.5%;
+  }
+
+  table th:nth-child(5) {
+    width: 10%;
+  }
+
+  table tr:nth-child(even) td:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  table tr:nth-child(even) td:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  table th,
+  table td {
+    padding: 0.625em;
+    text-align: start;
+  }
+
+  table th {
+    font-weight: 600;
+    font-size: 10px !important;
+    line-height: 20px;
+    color: #565454;
+    text-transform: uppercase;
+    font-family: "Sora", bold !important;
+  }
+
+  table td:first-child {
+    font-weight: 600;
+  }
+
+  table td {
+    font-weight: 400;
+    font-size: 14px !important;
+    line-height: 20px;
+    color: #000000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .table-doc-type {
+    padding: 2px 6px 2px 6px;
+    gap: 4px;
+    border-radius: 100px;
+    background-color: #6c6aee4d;
+    font-weight: 400;
+    font-size: 12px !important;
+    line-height: 16px;
+    color: #000000;
+  }
+
+  @media screen and (max-width: 705px) {
+    table {
+      border: 0;
+    }
+
+    table caption {
+      font-size: 1.3em;
+    }
+
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    table tr {
+      border: 3px solid #fbfbfb;
+      border-radius: 10px;
+      border-collapse: collapse;
+      display: block;
+      margin-bottom: 0.625em;
+    }
+    tbody tr:nth-child(even):hover {
+      background-color: #f9f9f9f9;
+    }
+    tbody tr:hover {
+      background-color: transparent;
+    }
+
+    table td {
+      border-bottom: 1px solid #fbfbfb;
+      display: block;
+      font-size: 0.8em;
+      text-align: right;
+    }
+
+    table td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    table td:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+.content-wrap-container {
+  padding: 4px;
+}
+
+.table-container {
+  padding: 16px;
+  padding-top: 10px;
+}
+
+.empty-data {
+  padding-top: 32px;
+  padding-right: 20px;
+
+  h2 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.load-more-btn-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .load-more-btn {
+    flex: 1;
+    background: #dcd9ea;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 100px;
+    border: 1px solid transparent;
+    padding: 8px 20px 8px 20px;
+  }
+
+  .load-more-btn:hover {
+    background: #d1cce6 !important;
+    color: #000000 !important;
+  }
+}
+
+.tableButton {
+  padding: 8px 16px 8px 16px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  background: none;
+  color: #5855ff;
+  align-items: center;
+}
+
+button:hover {
+  color: #2420d2 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+button:focus,
+button:focus-visible {
+  outline: none;
+}
+
+@media screen and (max-width: 600px) {
+  .table-container {
+    padding: 8px;
+    padding-top: 6px;
+    gap: 8px;
+  }
+}

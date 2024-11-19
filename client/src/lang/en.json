@@ -1,0 +1,73 @@
+{
+  "translation": {
+    "BACK": "Back",
+    "VIEW": "View",
+    "LOGOUT": "logout",
+    "SHOWING": "Showing",
+    "OF": "of",
+    "LOAD_MORE": "Load more",
+    "ROWS_PER_PAGE": "Rows per page: ",
+    "CLEAR": "Clear",
+    "TODAY": "Today",
+
+    "NAME": "Name",
+    "PARTIES": "Parties",
+    "DOCUMENT_TYPE": "Document Type",
+    "EXPIRATION_DATE": "Expiration Date",
+    "ACTIONS": "",
+
+    "LOGO_TITLE": "Navigator API Sample App",
+    "HEADER_HOME_NAV_TITLE": "Learn more about the Navigator API",
+    "HEADER_HOME_GITHUB_TITLE": "GitHub Source",
+
+    "HOME_HEADER_TITLE": "Welcome to the Navigator API Sample App",
+    "HOME_HEADER_DESCRIPTION": "Discover how the Navigator API (beta) can be used to access AI-extracted data from the Navigator smart agreement repository.",
+    "HOME_HEADER_BTN_TITLE": "Log in with your developer account",
+    "HOME_HEADER_CARD_TITLE": "Docusign: Build the future of agreements",
+    "HOME_HEADER_CARD_SUBTITLE": "Powering the world's agreements with Docusign APIs",
+    "HOME_HEADER_CARD_BTN_TITLE1": "Log in with a test account",
+    "HOME_HEADER_CARD_BTN_TITLE2": "Log in with a test account",
+
+    "SIDE_HEADER": "Behind the scenes",
+    "SIDE_HEADER2": "Overview",
+    "SIDE_HEADER2_LI1": "This example features the Navigator API. The Navigator API offers developers access to AI-extracted data from the Navigator smart agreement repository.",
+    "SIDE_HEADER3": "Endpoints",
+    "SIDE_HEADER4": "Code flow",
+    "SIDE_PARAGRAPH1_BEFORE_LINK": "Agreements stored in Docusign Navigator have extractable data, a significant portion of which may be generated as AI-assisted insights. The ",
+    "SIDE_PARAGRAPH1_AFTER_LINK": "endpoint is called to get a list of agreements available in the account.",
+    "SIDE_LINK_AGREEMENTS_RESPONSE": "AgreementsResponse",
+    "SIDE_PARAGRAPH2_BEFORE_LINK": "Users can filter the agreements by expiration date or agreement type. This is done by filtering the results based on values in the",
+    "SIDE_PARAGRAPH2_AFTER_LINK": "object in the response body from the Agreements: getAgreementsList endpoint.",
+    "SIDE_LINK_GET_AGREEMENTS_LIST": "Agreements: getAgreementsList",
+    "SIDE_PARAGRAPH3_BEFORE_LINK": "Once agreement data has been obtained through the API, it can be displayed in a dashboard, as demonstrated in this example. Agreement data can also be consumed and acted on by other apps or services. See ",
+    "SIDE_LINK_USE_CASES": "Navigator API use cases",
+    "SIDE_PARAGRAPH3_AFTER_LINK": "for more information.",
+    "AGREEMENT_HEADER": "Agreements",
+    "AGREEMENT_TEXT": "Results from the Agreements: getAgreementsList endpoint",
+
+    "AGREEMENT_DETAILS_HEADER": "Agreements details",
+    "AGREEMENT_DETAILS_TEXT": "Results from the Agreements: getAgreement endpoint",
+    "AGREEMENT_DETAILS_AGREEMENT":  "Agreement type",
+    "AGREEMENT_DETAILS_AGREEMENT_TYPE":  "Agreement type",
+    "AGREEMENT_DETAILS_AGREEMENT_PARTY":  "Party",
+    "AGREEMENT_DETAILS_AGREEMENT_CONTRACT_VALUE":  "Contract value",
+    "AGREEMENT_DETAILS_AGREEMENT_EFFECTIVE_DATE":  "Effective date",
+    "AGREEMENT_DETAILS_AGREEMENT_EXPIRATION_DATE":  "Expiration date",
+    "AGREEMENT_DETAILS_RENEWAL":  "Renewal",
+    "AGREEMENT_DETAILS_RENEWAL_TYPE":  "Renewal type",
+    "AGREEMENT_DETAILS_RENEWAL_NOTICE_PERIOD":  "Renewal notice period",
+    "AGREEMENT_DETAILS_RENEWAL_NOTICE_DATE":  "Renewal notice date",
+    "AGREEMENT_DETAILS_RENEWAL_TERM":  "Renewal term",
+    "AGREEMENT_DETAILS_RENEWAL_OWNER":  "Renewal owner",
+    "AGREEMENT_DETAILS_RENEWAL_ADDITIONAL_INFO":  "Additional information",
+
+    "SEARCH_NO_DATA_TITLE": "No results for “{{searchTerm}}”",
+    "SEARCH_NO_DATA": "Double check your search for any typos or spelling errors - or try a different term.",
+    "NO_DATA_TO_SHOWN_TITLE": "No data available",
+    "NO_DATA_TO_SHOWN": "No data available.",
+
+    "SEARCH_PLACEHOLDER": "Search by name",
+
+    "FOOTER_TITLE": "© 2024 Docusign Inc."
+  }
+}

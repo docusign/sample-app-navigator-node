@@ -83,6 +83,8 @@ export const getNestedValue = (obj: AgreementDocument, path: string) => {
       return obj.file_name;
     case "type":
       return obj.type;
+    case "parties":
+      return obj?.parties?.map((party) => party.name_in_agreement).join(", ") ?? "-";
     case "expiration_date":
       return obj.provisions?.expiration_date
         ? new Date(obj.provisions.expiration_date)

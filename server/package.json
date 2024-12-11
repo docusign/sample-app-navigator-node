@@ -21,6 +21,7 @@
     "moment": "^2.30.1",
     "path": "^0.12.7",
     "simple-oauth2": "^5.1.0",
+    "url-join": "^4.0.1",
     "docusign-esign-node-client": "file:./docusign-esign-node-client"
   }
 }

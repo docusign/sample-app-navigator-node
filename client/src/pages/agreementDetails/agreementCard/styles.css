@@ -19,6 +19,18 @@
   }
 }
 
+.agreement-details-card-main-section-header {
+  display: table;
+  width: 100%;
+}
+
+.agreement-details-card-main-section-header-item {
+  display: table-cell;
+}
+.agreement-details-card-main-section-header-item:last-child {
+  text-align: end;
+}
+
 .agreement-details-card-type-section {
   border-radius: 10px;
   padding: 12px;

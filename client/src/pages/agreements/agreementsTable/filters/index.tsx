@@ -10,6 +10,8 @@ import { DEFAULT_TYPE, TFilterTable } from "..";
 import dayjs from "dayjs";
 import ChevronUpIcon from "../../../../components/SVGIcons/ChevronUpIcon";
 import "./styles.css";
+import { useAppDispatch } from "../../../../store";
+import { fetchAgreements } from "../../../../store/state/agreements";
 
 type TableFilterProps = {
   filters: TFilterTable;
@@ -36,6 +38,7 @@ const TableFilters: React.FC<TableFilterProps> = ({
   const [onSelectDropdownVisible, setOnSelectDropdownVisible] = useState(false);
   const [onDatePickerDropdownVisible, setOnDatePickerDropdownVisible] =
     useState(false);
+  const dispatch = useAppDispatch();
 
   const handleTodayButtonClick = () => {
     const today = new Date();
@@ -43,6 +46,10 @@ const TableFilters: React.FC<TableFilterProps> = ({
     const event = dayjs();
 
     handleFilterDate(event, todayString);
+  };
+
+  const handleRefresh = () => {
+    dispatch(fetchAgreements() as any);
   };
 
   return (
@@ -166,6 +173,11 @@ const TableFilters: React.FC<TableFilterProps> = ({
             ))}
           </Select>
         </div>
+        <div>
+        <button className="tableButton" onClick={handleRefresh}>
+          {t(translationKeys.REFRESH_AGREEMENTS)}
+        </button>
+      </div>
       </div>
     </div>
   );

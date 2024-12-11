@@ -15,6 +15,7 @@
     "DOCUMENT_TYPE": "Document Type",
     "EXPIRATION_DATE": "Expiration Date",
     "ACTIONS": "",
+    "REFRESH_AGREEMENTS": "Refresh",
 
     "LOGO_TITLE": "Navigator API Sample App",
     "HEADER_HOME_NAV_TITLE": "Learn more about the Navigator API",
@@ -53,6 +54,7 @@
     "AGREEMENT_DETAILS_AGREEMENT_CONTRACT_VALUE":  "Contract value",
     "AGREEMENT_DETAILS_AGREEMENT_EFFECTIVE_DATE":  "Effective date",
     "AGREEMENT_DETAILS_AGREEMENT_EXPIRATION_DATE":  "Expiration date",
+    "AGREEMENT_DETAILS_AGREEMENT_REFRESH": "Refresh",
     "AGREEMENT_DETAILS_RENEWAL":  "Renewal",
     "AGREEMENT_DETAILS_RENEWAL_TYPE":  "Renewal type",
     "AGREEMENT_DETAILS_RENEWAL_NOTICE_PERIOD":  "Renewal notice period",

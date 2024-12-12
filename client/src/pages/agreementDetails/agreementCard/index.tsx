@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../../lang/translationKeys";
 import { mapDocumentType } from "../../agreements/helper";
 import "./styles.css";
+import { useAppDispatch } from "../../../store";
+import { fetchAgreementById } from "../../../store/state/agreements";
 import moment from "moment";
 
 type AgreementCardProps = {
@@ -13,6 +15,7 @@ type AgreementCardProps = {
 
 const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const agreementType = mapDocumentType(agreement.type);
   const parties = agreement.parties
@@ -36,10 +39,23 @@ const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
   const additionalInfo =
     "After the user completes signing the envelope in the embedded signing session, the envelope is redirected to the second signer based on the conditions described in Step 2.";
 
+  const handleRefresh = () => {
+    dispatch(fetchAgreementById(agreement.id) as any)
+  }
+
   return (
     <div className="agreement-details-card-container">
       <div className="agreement-details-card-main-section">
-        <h2>{t(translationKeys.AGREEMENT_DETAILS_AGREEMENT)}</h2>
+        <div className="agreement-details-card-main-section-header">
+          <div className="agreement-details-card-main-section-header-item">
+            <h2>{t(translationKeys.AGREEMENT_DETAILS_AGREEMENT)}</h2>
+          </div>
+          <div className="agreement-details-card-main-section-header-item">
+            <button className="tableButton" onClick={handleRefresh}>
+              {t(translationKeys.AGREEMENT_DETAILS_AGREEMENT_REFRESH)}
+            </button>
+          </div>
+        </div>
         <div className="agreement-details-card-type-section">
           <div className="agreement-details-item">
             <div className="agreement-details-label">

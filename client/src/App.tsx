@@ -12,6 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./store";
 import Loader from "./components/loader/loader";
 import { providerTheme } from "./constants/antTheme";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (

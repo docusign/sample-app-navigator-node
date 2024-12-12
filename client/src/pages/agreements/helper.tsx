@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { AgreementDocument, DocumentTypeModel } from "../../types";
 import { TFunction } from "i18next";
 import { translationKeys } from "../../lang/translationKeys";
+import moment from "moment";
 
 const documentTypeMapping: Record<DocumentTypeModel, string> = {
   [DocumentTypeModel.OTHER_LETTER]: "Offer Letter",
@@ -19,7 +20,9 @@ export const mapDocumentType = (type: string | null | undefined) => {
   return documentTypeMapping[type] || type;
 };
 
-export const getUniqueDocumentTypes = (agreements: AgreementDocument[]): string[] => {
+export const getUniqueDocumentTypes = (
+  agreements: AgreementDocument[]
+): string[] => {
   const types = agreements.map((a) => mapDocumentType(a.type));
   return Array.from(new Set(types));
 };
@@ -48,9 +51,7 @@ export const getColumns = (
     render: (_: any, record: AgreementDocument) => {
       return (
         <div className="table-doc-type-container">
-          <span className="table-doc-type">
-            {mapDocumentType(record.type)}
-          </span>
+          <span className="table-doc-type">{mapDocumentType(record.type)}</span>
         </div>
       );
     },
@@ -61,7 +62,10 @@ export const getColumns = (
     key: "expiration_date",
     render: (_: any, record: AgreementDocument) =>
       record.provisions?.expiration_date
-        ? format(new Date(record.provisions.expiration_date), "yyyy/MM/dd")
+        ? format(
+            moment(record.provisions.expiration_date).toDate(),
+            "yyyy/MM/dd"
+          )
         : "-",
   },
   {
@@ -84,10 +88,12 @@ export const getNestedValue = (obj: AgreementDocument, path: string) => {
     case "type":
       return obj.type;
     case "parties":
-      return obj?.parties?.map((party) => party.name_in_agreement).join(", ") ?? "-";
+      return (
+        obj?.parties?.map((party) => party.name_in_agreement).join(", ") ?? "-"
+      );
     case "expiration_date":
       return obj.provisions?.expiration_date
-        ? new Date(obj.provisions.expiration_date)
+        ? moment(obj.provisions.expiration_date).toDate()
         : new Date();
     default:
       return "";

@@ -7,6 +7,7 @@ import { mapDocumentType } from "../../agreements/helper";
 import "./styles.css";
 import { useAppDispatch } from "../../../store";
 import { fetchAgreementById } from "../../../store/state/agreements";
+import moment from "moment";
 
 type AgreementCardProps = {
   agreement: AgreementDocument;
@@ -21,17 +22,20 @@ const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
     ? agreement.parties.map((party) => party.name_in_agreement).join(", ")
     : "-";
   const effectiveDate = agreement.provisions?.effective_date
-    ? format(new Date(agreement.provisions.effective_date), "yyyy/MM/dd")
+    ? format(moment(agreement.provisions.effective_date).toDate(), "yyyy/MM/dd")
     : "-";
   const expirationDate = agreement.provisions?.expiration_date
-    ? format(new Date(agreement.provisions.expiration_date), "yyyy/MM/dd")
+    ? format(
+        moment(agreement.provisions.expiration_date).toDate(),
+        "yyyy/MM/dd"
+      )
     : "-";
 
   const renewalType = agreement?.provisions?.assignment_type ?? "-";
   const renewalNoticePeriod = agreement?.provisions?.execution_date ?? "-";
-  const renewalNoticeDate = agreement?.provisions?.execution_date ?? '-';
+  const renewalNoticeDate = agreement?.provisions?.execution_date ?? "-";
   const renewalTerm = agreement?.provisions?.execution_date ?? "1 year";
-  const renewalOwner = agreement?.parties?.[0]?.name_in_agreement ?? '-';
+  const renewalOwner = agreement?.parties?.[0]?.name_in_agreement ?? "-";
   const additionalInfo =
     "After the user completes signing the envelope in the embedded signing session, the envelope is redirected to the second signer based on the conditions described in Step 2.";
 

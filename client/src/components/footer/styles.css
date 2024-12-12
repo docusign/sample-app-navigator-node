@@ -4,6 +4,8 @@
   width: 100%;
   display: flex;
   align-items: center;
+  background-color: white;
+  border-top: 1px solid black;
 }
 
 .footer-container {
@@ -23,8 +25,8 @@
   justify-content: center;
   text-align: center;
   margin-top: auto;
-  color: var(--grey-main);
-  font-size: 12px;
-  font-weight: 400;
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 16px;
 }

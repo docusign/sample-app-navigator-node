@@ -1,5 +1,12 @@
+a {
+  text-decoration: none !important;
+}
+
+.dropdown-toggle::after {
+  content: none !important;
+}
+
 .header {
-  background: linear-gradient(78deg, #141020, #3f225f, #3f225f, #141020);
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -8,6 +15,10 @@
 
   position: relative;
   width: 100vw;
+}
+
+.header-image {
+  background: url("../../assets/img/background.png");
 }
 
 .logo-container {

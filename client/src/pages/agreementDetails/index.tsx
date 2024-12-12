@@ -32,7 +32,7 @@ const AgreementDetails: React.FC<AgreementDetailsProps> = () => {
 
   return (
     <div className="agreement-details-page">
-      <Header showLogoutBtn />
+      <Header className="header-image" showLogoutBtn />
       <div className="agreement-details-body-container">
         <div className="agreement-details-title-container">
           <BackButton />

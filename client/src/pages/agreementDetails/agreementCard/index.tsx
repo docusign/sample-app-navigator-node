@@ -36,9 +36,7 @@ const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
   const renewalNoticeDate = agreement?.provisions?.execution_date ?? "-";
   const renewalTerm = agreement?.provisions?.execution_date ?? "1 year";
   const renewalOwner = agreement?.parties?.[0]?.name_in_agreement ?? "-";
-  const additionalInfo =
-    "After the user completes signing the envelope in the embedded signing session, the envelope is redirected to the second signer based on the conditions described in Step 2.";
-
+  const additionalInfo = agreement?.additional_custom_esign_data?.[0]?.label ?? "-";
   const handleRefresh = () => {
     dispatch(fetchAgreementById(agreement.id) as any)
   }

@@ -56,6 +56,15 @@ const SideDescription = () => {
             {t(translationKeys.SIDE_LINK_AGREEMENTS_RESPONSE)}
           </a>{" "}
           {t(translationKeys.SIDE_PARAGRAPH2_AFTER_LINK)}{" "}
+          <a
+            className="description-link"
+            href={LINKS.GET_AGREEMENT}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t(translationKeys.SIDE_LINK_GET_AGREEMENT)}
+          </a>{" "}
+          {t(translationKeys.SIDE_PARAGRAPH2_PART2)}{" "}
         </p>
         <p>
           {t(translationKeys.SIDE_PARAGRAPH3_BEFORE_LINK)}{" "}

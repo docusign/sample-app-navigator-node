@@ -83,7 +83,7 @@ const Header = ({ showLogoutBtn, className }: HeaderProps) => {
   return (
     <header className={`header ${className}`} role="banner">
       <nav className={"navBar"}>
-        <Link className={"logo"} to={ROUTE.AGREEMENTS}>
+        <Link className={"logo"} to={ROUTE.ROOT} onClick={handleLogoutAction}>
           <div className="logo-container">
             <img src={logo} alt="logo" />
             <p>{t(translationKeys.LOGO_TITLE)}</p>

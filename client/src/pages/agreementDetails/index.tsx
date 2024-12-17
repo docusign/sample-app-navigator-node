@@ -5,7 +5,7 @@ import Footer from "../../components/footer";
 import SideDescription from "../../components/sideDescription";
 import AgreementCard from "./agreementCard";
 import { useSelector } from "react-redux";
-import { getAgreementByIdSelector } from "../../store/state/agreements/selectors";
+import { getAgreementByIdSelector, isAgreementsLoadingSelector } from "../../store/state/agreements/selectors";
 import { AgreementDocument } from "../../types";
 import { useTranslation } from "react-i18next";
 import { translationKeys } from "../../lang/translationKeys";
@@ -13,12 +13,15 @@ import BackButton from "../../components/backBtn";
 import { fetchAgreementById } from "../../store/state/agreements";
 import { useAppDispatch } from "../../store";
 import "./styles.css";
+import Loader from "../../components/loader/loader";
 
 type AgreementDetailsProps = {};
 
 const AgreementDetails: React.FC<AgreementDetailsProps> = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  
+  const isAgreementsLoading = useSelector(isAgreementsLoadingSelector);
 
   const { id } = useParams();
 
@@ -32,7 +35,7 @@ const AgreementDetails: React.FC<AgreementDetailsProps> = () => {
 
   return (
     <div className="agreement-details-page">
-      <Header showLogoutBtn />
+      <Header className="header-image" showLogoutBtn />
       <div className="agreement-details-body-container">
         <div className="agreement-details-title-container">
           <BackButton />
@@ -41,7 +44,13 @@ const AgreementDetails: React.FC<AgreementDetailsProps> = () => {
         </div>
         <div className="agreement-details-content-wrapper">
           <div className="agreements-details-component">
-            <AgreementCard agreement={agreement ?? ({} as AgreementDocument)} />
+            {isAgreementsLoading ? (
+              <div className="loader-container">
+                <Loader />
+              </div>
+            ) : (
+              <AgreementCard agreement={agreement ?? ({} as AgreementDocument)} />
+            )}
           </div>
           <div className="agreement-details-side-component">
             <SideDescription />

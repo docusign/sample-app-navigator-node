@@ -30,7 +30,7 @@ const Agreements: React.FC<AgreementsProps> = () => {
 
   return (
     <div className="agreement-page">
-      <Header showLogoutBtn />
+      <Header className="header-image" showLogoutBtn />
       <div className="agreement-body-container">
         <div className="title-container">
           <h1>{t(translationKeys.AGREEMENT_HEADER)}</h1>
@@ -40,7 +40,7 @@ const Agreements: React.FC<AgreementsProps> = () => {
           <div className="agreements-component">
             {isAgreementsLoading ? (
               <div className="loader-container">
-              <Loader />
+                <Loader />
               </div>
             ) : (
               <AgreementsTable data={agreements} />

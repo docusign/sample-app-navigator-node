@@ -58,9 +58,6 @@ const Home: React.FC = () => {
                       __html: t(translationKeys.HOME_HEADER_TITLE),
                     }}
                   ></h1>
-                  <h4 className="main-description">
-                    {t(translationKeys.HOME_HEADER_DESCRIPTION)}
-                  </h4>
                 </div>
                 <div className="buttons-div">
                   <a

@@ -46,7 +46,7 @@
     "SIDE_PARAGRAPH2_BEFORE_LINK": "Users can filter the agreements by expiration date or agreement type. This is done by filtering the results based on values in the",
     "SIDE_PARAGRAPH2_AFTER_LINK": "object in the response body from the Agreements: getAgreementsList endpoint. When a user selects an agreement, the",
     "SIDE_LINK_GET_AGREEMENT": "Agreements: getAgreement",
-    "SIDE_PARAGRAPH2_PART2": " endpoint is called to display details about a specific agreement.",
+    "SIDE_PARAGRAPH2_PART2": " endpoint is called to display details about that specific agreement.",
     "SIDE_LINK_GET_AGREEMENTS_LIST": "Agreements: getAgreementsList",
     "SIDE_PARAGRAPH3_BEFORE_LINK": "Once agreement data has been obtained through the API, it can be displayed in a dashboard, as demonstrated in this example. Agreement data can also be consumed and acted on by other apps or services. See ",
     "SIDE_LINK_USE_CASES": "Navigator API use cases",

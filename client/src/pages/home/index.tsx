@@ -79,7 +79,7 @@ const Home: React.FC = () => {
                   </a>
                 </div>
                 <p className="step-description">
-                  {t(translationKeys.HOME_HEADER_STEP_ONE)}
+                  {t(translationKeys.HOME_HEADER_STEP_ONE)}  or <a href='https://developers.docusign.com/docs/navigator-api/beta/'>join the closed beta</a>.
                 </p>
               </div>
             </div>
@@ -133,9 +133,6 @@ const Home: React.FC = () => {
             </div>
           </div>
           <div className="links-container">
-            <span className="spinner-icon">
-              <img src={spinner} alt="Loading spinner" />
-            </span>
           </div>
         </div>
       </section>
